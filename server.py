@@ -498,7 +498,9 @@ app.add_routes([
     web.get("/api/link", lambda r: link(r))
 ])
 
+ONLINE_URL = "https://shastrath.onrender.com"
 PORT = int(os.environ.get("PORT", 8765))
+os.environ.setdefault("NO_TUNNEL", "1")  # no local tunnel needed; the Render backend is used
 HOSTED = bool(os.environ.get("PORT"))
 
 
@@ -612,12 +614,13 @@ async def on_start(app):
     print("  [ Astra Wars: Epics of Bharat - Server Online ]")
     print(f"  Local Browser : {url}")
     print(f"  Same Wi-Fi    : http://{lan_ip()}:{PORT}")
-    print("  Launching game in your default browser...")
+    print(f"  Opening online game: {ONLINE_URL}")
     print("  Keep this terminal window open while playing.")
     print("  Press Ctrl+C to stop the server.")
     print("  =======================================================\n")
     if not HOSTED:
-        threading.Timer(0.6, lambda: open_browser(url)).start()
+        # Open the online (Render) game instead of the empty local page
+        threading.Timer(0.6, lambda: open_browser(ONLINE_URL)).start()
     app["tunnel_task"] = asyncio.create_task(start_tunnel(app))
 
 
