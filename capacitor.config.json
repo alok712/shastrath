@@ -1,0 +1,10 @@
+
+ { "appId": "com.dharmyudha.app",
+  "appName": "SHASTRARTH",
+  "webDir": "www"
+}
+
+   "server": {
+    "url": "https://shastrarth.onrender.com",
+    "cleartext": true
+}

@@ -1,0 +1,25 @@
+# --- Python / server ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# --- Node ---
+node_modules/
+
+# --- Local tools / binaries ---
+cloudflared.exe
+cloudflared
+*.log
+
+# --- Build output ---
+release/*.apk
+release/baselineProfiles/
+android/app/release/
+
+# --- Editor / OS ---
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+desktop.ini

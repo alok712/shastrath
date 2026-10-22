@@ -573,8 +573,11 @@ app.add_routes([
     web.get("/api/ping", ping),
 ])
 
-ONLINE_URL = "https://shastrath.onrender.com"
-PORT = int(os.environ.get("PORT", 8765))
+ONLINE_URL = "https://shastrarth.onrender.com"
+try:
+    PORT = int(os.environ.get("PORT") or 8765)
+except (TypeError, ValueError):
+    PORT = 8765
 # NO_TUNNEL=1 disables the local cloudflared quick-tunnel (Render sets PORT, so it never tunnels there)
 NO_TUNNEL = os.environ.get("NO_TUNNEL", "").strip().lower() in ("1", "true", "yes", "on")
 HOSTED = bool(os.environ.get("PORT"))
@@ -633,7 +636,7 @@ async def try_cmd(name, cmd, app, wait=40):
 
 
 async def start_tunnel(app):
-    if HOSTED or os.environ.get("NO_TUNNEL"): return
+    if HOSTED or NO_TUNNEL: return
     loop = asyncio.get_running_loop(); attempts = []
     try: exe = await loop.run_in_executor(None, get_cloudflared)
     except Exception as e: print(f"  cloudflared unavailable: {e}"); exe = None

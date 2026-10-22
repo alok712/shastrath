@@ -177,7 +177,7 @@
  <div class="panel">
   <label><span data-i18n="name"></span> <input id="name" maxlength="16" data-ph="namePh"></label>
   <label><span data-i18n="lang"></span> <select id="lang" class="langsel"></select></label>
-  <p><label><span data-i18n="srv"></span> <input id="srv" size="34" placeholder="shastrath.onrender.com"></label><br><small data-i18n="srvHelp"></small></p>
+  <p><label><span data-i18n="srv"></span> <input id="srv" size="34" placeholder="shastrarth.onrender.com"></label><br><small data-i18n="srvHelp"></small></p>
  </div>
 
  <!-- Battle Format (1P, 2P, 3P, 4P) -->
@@ -735,11 +735,9 @@ $("fx").onchange = e => { fxN = +e.target.value; initStars(); };
 $("fs").oninput = e => document.body.style.fontSize = e.target.value + "px";
 $("phon").onchange = e => $("sub").textContent = e.target.checked ? T("phonSub") : T("sub");
 
-const ONLINE_SRV = "https://shastrath.onrender.com";
-/* Default to the server that is serving this page (instant, no cold start).
-   Falls back to the hosted Render URL when the page is opened from a file. */
-const defSrv = () => (/^https?:$/.test(location.protocol) && location.origin && location.origin !== "null")
-  ? location.origin : ONLINE_SRV;
+const ONLINE_SRV = "https://shastrarth.onrender.com";
+/* The hosted Render backend is the default server for every device. */
+const defSrv = () => ONLINE_SRV;
 const isLocalAddr = a => /^(wss?:\/\/|https?:\/\/)?(localhost|127\.|192\.168\.|10\.|0\.0\.0\.0)/i.test(a || "");
 let srvCustom = store("srv_custom") === "1";
 if (!srvCustom) store("srv", defSrv());

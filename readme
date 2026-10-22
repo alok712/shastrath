@@ -1,0 +1,86 @@
+SHASTRATH - Sacred Scripture Arena (Dharma Yuddha)
+=================================================
+
+A scripture quiz battle arena. Answer riddles from the Mahabharata, Ramayana,
+Vedas and Puranas, and strike down your rival before they strike you.
+
+PLAY LOCALLY
+------------
+1. pip install aiohttp
+2. python server.py   (the game opens automatically)
+
+The server serves the game AND the backend from the same address, so the game
+connects to the server it was loaded from - no waiting, no cold start.
+
+PLAY ONLINE FROM ANYWHERE
+-------------------------
+- Permanent: deploy this folder to Render / Railway / Fly.io
+  (start command: python server.py). Render reads render.yaml.
+  Those hosts set PORT themselves; share the https URL they give you.
+- The Android app (APK) loads the game straight from https://shastrarth.onrender.com
+  so it always uses the hosted backend. After every change to the backend you
+  must push to GitHub so Render redeploys.
+- Same Wi-Fi: use the "Same Wi-Fi" address printed in the console.
+  Set NO_TUNNEL=1 to disable the automatic cloudflared tunnel.
+
+GAME MODES
+----------
+- 1P Solo (vs Bot) / 2P Duel / 3P Tri-Yuddha / 4P Kurukshetra
+- Battle length: 6, 12, 18, 24 or 40 rounds
+- Realms: Mahabharata, Ramayana, Vedas, Puranas or All Scriptures
+- Difficulty: I Easy, II Harder, III Scholar, or Rising (auto ramp)
+- Masters of Shastrath (Hardcore): Scholar (level 3) riddles only,
+  lethal 50 HP, sharper Asura, 3x Karma
+- Online play: share the room code or the invite link. Same room +
+  same settings = same arena.
+
+A question never repeats inside the same match, and every rematch draws
+fresh ("unseen") riddles.
+
+ADDING QUESTIONS
+----------------
+- Open www/questions.json and copy any entry.
+  epic:   M = Mahabharata, R = Ramayana, V = Vedas, P = Puranas
+  level:  1 = Easy, 2 = Harder, 3 = Scholar
+  options: exactly 4   |   answer: 0-3 (position of the correct option)
+- The game shuffles the options itself, so the answer index stays valid.
+- Keep questions.json next to server.py OR inside www/ (both are detected).
+- No server restart needed - the file is re-read automatically.
+- OPTIONAL TRANSLATION:
+  "tr": {"hi": {"q": "...", "options": [4 items in the SAME order as English]}}
+  codes: hi, mr, sa, ta, te. Missing languages fall back to English.
+
+ANDROID APK
+-----------
+1. npx cap copy android      (copies www/ into the app)
+2. Build the APK:
+   - Android Studio: open the android/ folder -> Build -> Build APK(s)
+     (the APK lands in android/app/build/outputs/apk/release/), or
+   - command line:  cd android && gradlew assembleRelease
+   The result is copied to release/SHASTRATH-release-unsigned.apk
+3. SIGN IT (Android Studio: Build -> Generate Signed App Bundle/APK, or):
+   sign-apk.bat  path\to\key.jks  alias  storePassword  keyPassword
+   -> writes SHASTRATH-release.apk to your Downloads folder.
+   (To sign automatically with Gradle, drop the keystore next to the project
+   as android/keystore.properties with storeFile / storePassword / keyAlias /
+   keyPassword, then run gradlew assembleRelease again.)
+
+IMPORTANT - the app loads the game from https://shastrarth.onrender.com
+(capacitor.config.json -> server.url), so after every backend change you must
+push to GitHub so Render redeploys. The APK then picks up the new game with no
+rebuild. To bundle the game inside the APK instead, delete the "server" block
+from capacitor.config.json and run npx cap copy android again.
+
+Set the app name / id in capacitor.config.json (appName: SHASTRATH).
+The app id is com.dharmyudha.app - keep it the same to update an existing
+install, or change it to install alongside the old one.
+
+FILES
+-----
+- server.py            backend: match engine, question bank, websocket
+- www/index.html       the game (single page app)
+- www/style.css        themes + animations
+- www/lang.js          all on-screen text (6 languages)
+- www/questions.json   the question bank
+- www/bg.jpg           background art
+- android/             Capacitor Android project
