@@ -1,6 +1,7 @@
-"""Astra Wars: Epics of Bharat - server.
+"""SHASTRATH: Sacred Scripture Arena - server.
 Run:  pip install aiohttp  &&  python server.py   ->  http://localhost:8765
 Modes: 1, 2, 3, and 4 players (Solo Sadhana, 1v1 Dvanda, 3P Tri-Yuddha, 4P Kurukshetra Mahayuddha).
+Realms: M = Mahabharata, R = Ramayana, V = Vedas, P = Puranas, A = All Scriptures.
 Tracks seen questions persistently to avoid repetition across games.
 """
 import asyncio, json, random, time, os, re, shutil, socket, threading, webbrowser, sys
@@ -8,28 +9,41 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 from aiohttp import web, WSMsgType
 
-QFILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "questions.json")
-_qcache = {"mtime": None, "data": []}
+HERE = os.path.dirname(os.path.abspath(__file__))
+# questions.json may live next to server.py OR inside the web folder (www/)
+Q_CANDIDATES = [
+    os.path.join(HERE, "questions.json"),
+    os.path.join(HERE, "www", "questions.json"),
+]
+QFILE = next((p for p in Q_CANDIDATES if os.path.exists(p)), Q_CANDIDATES[0])
+VALID_EPICS = ("M", "R", "V", "P")
+MIN_ROUNDS, MAX_ROUNDS = 3, 40
+_qcache = {"mtime": None, "data": [], "path": None}
 
 
 def load_questions():
     """Reads questions.json (re-read automatically whenever the file changes)."""
+    global QFILE
+    for cand in Q_CANDIDATES:
+        if os.path.exists(cand):
+            QFILE = cand
+            break
     try:
         mt = os.path.getmtime(QFILE)
-        if mt != _qcache["mtime"]:
+        if mt != _qcache["mtime"] or _qcache["path"] != QFILE:
             raw = json.load(open(QFILE, encoding="utf-8"))["questions"]; good = []
             for i, q in enumerate(raw):
-                ok = (q.get("epic") in ("M", "R") and q.get("level") in (1, 2, 3) and q.get("q")
+                ok = (q.get("epic") in VALID_EPICS and q.get("level") in (1, 2, 3) and q.get("q")
                       and isinstance(q.get("options"), list) and len(q["options"]) == 4 and q.get("answer") in (0, 1, 2, 3))
                 if ok: good.append(q)
                 else: print(f"  questions.json: skipped invalid question #{i + 1}")
-            _qcache.update(mtime=mt, data=good); print(f"  Loaded {len(good)} questions.")
+            _qcache.update(mtime=mt, data=good, path=QFILE); print(f"  Loaded {len(good)} questions from {QFILE}.")
     except (OSError, ValueError, KeyError) as e:
         print(f"  Could not read questions.json: {e}")
     return _qcache["data"]
 
 
-BOT_SKILL = {"easy": (0.45, 5.5), "medium": (0.72, 3.8), "hard": (0.92, 2.2)}
+BOT_SKILL = {"easy": (0.45, 5.5), "medium": (0.72, 3.8), "hard": (0.94, 2.2)}
 BOT_NAMES = [
     "Rakshasa Overlord",
     "Gandharva Champion",
@@ -58,6 +72,7 @@ class Player:
         s.plan = None
         s.is_bot = (ws is None)
         s.seen_questions = seen_ref if seen_ref is not None else set()
+        s.rounds = 12
 
     async def send(s, **m):
         if s.ws is not None and not s.ws.closed:
@@ -82,13 +97,14 @@ def localize(q, lang):
 
 
 class Match:
-    def __init__(s, players, realm, level=0, bot_difficulty="medium", rounds_total=12, max_hp=100):
+    def __init__(s, players, realm, level=0, bot_difficulty="medium", rounds_total=12, max_hp=100, hardcore=False):
         s.p = players
         s.realm = realm
         s.level = level
         s.bot_difficulty = bot_difficulty
-        s.rounds_total = rounds_total
+        s.rounds_total = max(MIN_ROUNDS, min(MAX_ROUNDS, int(rounds_total)))
         s.max_hp = max_hp
+        s.hardcore = hardcore
         for p in s.p:
             p.hp = max_hp
         s.n = 0
@@ -101,36 +117,42 @@ class Match:
         s.task = asyncio.create_task(s.run())
 
     def pick(s):
-        """Draws without repeats across games and current match."""
+        """Draws a question. NEVER repeats inside the same match when the pool allows it."""
         pool = [i for i, q in enumerate(s.qs) if s.realm == "A" or q["epic"] == s.realm]
-        want = s.level or min(3, 1 + (s.n - 1) // 3)
+        if not pool:
+            pool = list(range(len(s.qs)))
+        if not pool:
+            return 0
+        # Rising difficulty ladder when the player did not fix a level
+        want = s.level or min(3, 1 + (s.n - 1) // 4)
 
-        # Union of seen questions among all human players
+        # Union of questions already seen by any human in this session
         human_seen = set()
         for p in s.p:
             if not p.is_bot:
                 human_seen.update(p.seen_questions)
 
-        # Filter out questions used in this match AND previously seen in session
-        fresh = [i for i in pool if i not in s.used and i not in human_seen]
-        if len(fresh) < 3:
-            # Pool exhausted! Reset persistent seen questions for human players
-            for p in s.p:
-                if not p.is_bot:
-                    p.seen_questions.clear()
-            fresh = [i for i in pool if i not in s.used]
+        # 1) Hard guarantee: anything already used in THIS match is excluded first.
+        avail = [i for i in pool if i not in s.used]
+        if not avail:
+            # Pool fully consumed - only now may a question repeat.
+            avail = list(pool)
 
-        # Prioritize matching level
-        c = [i for i in fresh if s.qs[i]["level"] == want]
-        if not c:
-            c = sorted(fresh, key=lambda i: abs(s.qs[i]["level"] - want))
+        # 2) Prefer questions never seen before in this session (unseen riddles).
+        fresh = [i for i in avail if i not in human_seen]
+        c = fresh if fresh else avail
+
+        # 3) Level matching (exact first, then nearest).
+        exact = [i for i in c if s.qs[i]["level"] == want]
+        if exact:
+            c = exact
+        else:
+            c = sorted(c, key=lambda i: abs(s.qs[i]["level"] - want))
             if c:
                 min_diff = abs(s.qs[c[0]]["level"] - want)
                 c = [i for i in c if abs(s.qs[i]["level"] - want) == min_diff]
-        if not c:
-            s.used.clear()
-            c = [i for i in pool if s.qs[i]["epic"] != s.last_epic] or pool
 
+        # 4) In "All Scriptures" mode avoid two of the same realm in a row.
         if s.realm == "A":
             alt = [i for i in c if s.qs[i]["epic"] != s.last_epic]
             if alt:
@@ -158,8 +180,11 @@ class Match:
             await p.send(**m)
 
     async def run(s):
-        await s.bcast(type="start", names=[p.name for p in s.p], count=len(s.p), rounds=s.rounds_total, max_hp=s.max_hp)
-        await asyncio.sleep(1.5)
+        if not s.qs:
+            await s.bcast(type="end", winner=-1)
+            return
+        await s.bcast(type="start", names=[p.name for p in s.p], count=len(s.p), rounds=s.rounds_total, max_hp=s.max_hp, hardcore=s.hardcore)
+        await asyncio.sleep(0.35)   # near-instant kick-off: the arena opens at once
         final = False
 
         while s.n < s.rounds_total:
@@ -171,7 +196,7 @@ class Match:
 
             # Bonus question every 4th round (except final)
             bonus = (not final) and (s.n % 4 == 0) and (s.n < s.rounds_total)
-            base_t = 5 if final else 10
+            base_t = (4 if s.hardcore else 5) if final else (8 if s.hardcore else 10)
             s.ts = [base_t + (0 if final else extra_val) for extra_val in s.extra]
             s.extra = [0] * len(s.p)
             max_wait = max(s.ts)
@@ -259,7 +284,7 @@ class Match:
                     hit=[False] * len(s.p),
                     final=True
                 )
-                await asyncio.sleep(2.5)
+                await asyncio.sleep(1.8)
                 continue
 
             # Bonus Round
@@ -283,7 +308,7 @@ class Match:
                     bonus=True,
                     extra=s.extra[:]
                 )
-                await asyncio.sleep(2.2)
+                await asyncio.sleep(1.6)
                 continue
 
             # Standard Round Resolution
@@ -332,7 +357,7 @@ class Match:
                 hit=hit,
                 final=False
             )
-            await asyncio.sleep(2.4)
+            await asyncio.sleep(1.5)
 
             # Check eliminations
             alive = [i for i, p in enumerate(s.p) if p.hp > 0]
@@ -345,7 +370,7 @@ class Match:
                 if any(p.hp < 20 for p in s.p):
                     final = True
                     await s.bcast(type="brahma")
-                    await asyncio.sleep(2.8)
+                    await asyncio.sleep(2.0)
             else:
                 if len(alive) <= 1:
                     winner = alive[0] if alive else max(range(len(s.p)), key=lambda i: s.p[i].score)
@@ -401,11 +426,13 @@ async def ws_handler(req):
         if t in ("bot", "rematch"):
             num_players = max(1, min(4, int(d.get("players_count", 2))))
             bot_level = d.get("level", "medium")
-            rounds_count = int(d.get("rounds", 12))
+            rounds_count = max(MIN_ROUNDS, min(MAX_ROUNDS, int(d.get("rounds", 12))))
             realm_choice = d.get("realm", "A")
             q_level = int(d.get("qlevel", 0))
+            hardcore = bool(d.get("hardcore"))
 
             me = new_player(ws, d, seen_ref=seen_set)
+            me.rounds = rounds_count
             players_list = [me]
 
             # In 1P, add 1 Bot so player has an opponent to test against
@@ -414,18 +441,28 @@ async def ws_handler(req):
                 b_name = BOT_NAMES[b_i % len(BOT_NAMES)]
                 players_list.append(Player(None, b_name))
 
+            if hardcore:
+                # Masters of Shastrath: lethal 50 HP, Scholar (level 3) riddles only
+                q_level = 3
+                bot_level = "hard"
+                rounds_count = max(rounds_count, 18)
+
             match = Match(
                 players_list,
                 realm=realm_choice,
                 level=q_level,
                 bot_difficulty=bot_level,
-                rounds_total=rounds_count
+                rounds_total=rounds_count,
+                max_hp=50 if hardcore else 100,
+                hardcore=hardcore
             )
             idx = 0
 
         elif t == "online":
             target_count = max(2, min(4, int(d.get("players_count", 2))))
+            rounds_count = max(MIN_ROUNDS, min(MAX_ROUNDS, int(d.get("rounds", 12))))
             me = new_player(ws, d, seen_ref=seen_set)
+            me.rounds = rounds_count
             room_key = (d.get("room") or "").upper() or f"_M_{d.get('realm', 'A')}_{d.get('qlevel', 0)}_{target_count}"
             
             queue = waiting.setdefault(room_key, [])
@@ -439,11 +476,13 @@ async def ws_handler(req):
             if len(queue) >= target_count:
                 match_players = queue[:target_count]
                 waiting[room_key] = queue[target_count:]
+                # Both friends may have picked a different length: take the longer battle.
+                best_rounds = max(MIN_ROUNDS, min(MAX_ROUNDS, max((getattr(p, "rounds", 12) for p in match_players), default=12)))
                 m = Match(
                     match_players,
                     realm=d.get("realm", "A"),
                     level=int(d.get("qlevel", 0)),
-                    rounds_total=int(d.get("rounds", 12))
+                    rounds_total=best_rounds
                 )
                 for slot_idx, player in enumerate(match_players):
                     player.match_ref = m
@@ -484,18 +523,54 @@ async def ws_handler(req):
 
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+WWW = os.path.join(HERE, "www") if os.path.isdir(os.path.join(HERE, "www")) else HERE
 app = web.Application()
 
-async def index(r): return web.FileResponse(os.path.join(HERE, "index.html"))
-async def css(r): return web.FileResponse(os.path.join(HERE, "style.css"))
-async def langjs(r): return web.FileResponse(os.path.join(HERE, "lang.js"))
+
+def web_file(name):
+    """Resolves a static asset from www/ first, then from the server root."""
+    p1 = os.path.join(WWW, name)
+    if os.path.exists(p1):
+        return p1
+    return os.path.join(HERE, name)
+
+
+async def index(r):
+    return web.FileResponse(web_file("index.html"), headers={"Cache-Control": "no-cache"})
+
+
+async def css(r):
+    return web.FileResponse(web_file("style.css"), headers={"Cache-Control": "public, max-age=3600"})
+
+
+async def langjs(r):
+    return web.FileResponse(web_file("lang.js"), headers={"Cache-Control": "public, max-age=3600"})
+
+
+async def qjson(r):
+    return web.FileResponse(web_file("questions.json"), headers={"Cache-Control": "public, max-age=300"})
+
+
+async def bgjpg(r):
+    return web.FileResponse(web_file("bg.jpg"), headers={"Cache-Control": "public, max-age=86400"})
+
+
+async def ping(r):
+    """Cheap keep-alive ping: also wakes up a sleeping Render free instance."""
+    return web.json_response({"ok": True, "t": int(time.time()), "q": len(load_questions())},
+                             headers={"Cache-Control": "no-store", "Access-Control-Allow-Origin": "*"})
+
 
 app.add_routes([
     web.get("/ws", ws_handler),
     web.get("/", index),
+    web.get("/index.html", index),
     web.get("/style.css", css),
     web.get("/lang.js", langjs),
-    web.get("/api/link", lambda r: link(r))
+    web.get("/questions.json", qjson),
+    web.get("/bg.jpg", bgjpg),
+    web.get("/api/link", lambda r: link(r)),
+    web.get("/api/ping", ping),
 ])
 
 ONLINE_URL = "https://shastrath.onrender.com"
@@ -611,7 +686,8 @@ def find_free_port(start_port):
 async def on_start(app):
     url = f"http://localhost:{PORT}"
     print("\n  =======================================================")
-    print("  [ Astra Wars: Epics of Bharat - Server Online ]")
+    print("  [ SHASTRATH: Sacred Scripture Arena - Server Online ]")
+    load_questions()   # preload so the very first match starts instantly
     print(f"  Local Browser : {url}")
     print(f"  Same Wi-Fi    : http://{lan_ip()}:{PORT}")
     print(f"  Opening online game: {ONLINE_URL}")
