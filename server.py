@@ -575,7 +575,8 @@ app.add_routes([
 
 ONLINE_URL = "https://shastrath.onrender.com"
 PORT = int(os.environ.get("PORT", 8765))
-os.environ.setdefault("NO_TUNNEL", "1")  # no local tunnel needed; the Render backend is used
+# NO_TUNNEL=1 disables the local cloudflared quick-tunnel (Render sets PORT, so it never tunnels there)
+NO_TUNNEL = os.environ.get("NO_TUNNEL", "").strip().lower() in ("1", "true", "yes", "on")
 HOSTED = bool(os.environ.get("PORT"))
 
 
@@ -690,13 +691,12 @@ async def on_start(app):
     load_questions()   # preload so the very first match starts instantly
     print(f"  Local Browser : {url}")
     print(f"  Same Wi-Fi    : http://{lan_ip()}:{PORT}")
-    print(f"  Opening online game: {ONLINE_URL}")
     print("  Keep this terminal window open while playing.")
     print("  Press Ctrl+C to stop the server.")
     print("  =======================================================\n")
     if not HOSTED:
-        # Open the online (Render) game instead of the empty local page
-        threading.Timer(0.6, lambda: open_browser(ONLINE_URL)).start()
+        # Open the game that is served by THIS server (it also serves the websocket backend)
+        threading.Timer(0.6, lambda: open_browser(url)).start()
     app["tunnel_task"] = asyncio.create_task(start_tunnel(app))
 
 

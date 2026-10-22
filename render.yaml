@@ -2,6 +2,12 @@ services:
   - type: web
     name: astra-wars
     runtime: python
+    plan: free
     buildCommand: pip install -r requirements.txt
     startCommand: python server.py
-    plan: free
+    healthCheckPath: /api/ping
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.9"
+      - key: NO_TUNNEL
+        value: "1"

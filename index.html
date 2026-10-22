@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SHASTRATH</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Marcellus&family=Rajdhani:wght@500;600;700&family=Tiro+Devanagari+Sanskrit&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"></head><body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<style>
+/* These rules live INSIDE the svg so they also style the shadow copies made by use elements. */
+.fx-ring { transform-origin: 60px 58px; animation: fxSpin 16s linear infinite; }
+.fx-ring2 { transform-origin: 60px 58px; animation: fxSpin 26s linear infinite reverse; }
+.fx-aura { transform-origin: 60px 58px; animation: fxSpin 44s linear infinite; }
+.fx-core { transform-origin: 60px 60px; animation: fxPulse 2.4s ease-in-out infinite; }
+.fx-eye, .fx-eyes { animation: fxBlink 3.6s ease-in-out infinite; }
+.fx-crown { transform-origin: 60px 26px; animation: fxFloat 3.4s ease-in-out infinite; }
+.fx-horns { transform-origin: 60px 26px; animation: fxFloat 4.6s ease-in-out infinite; }
+.fx-arrow { animation: fxDraw 4s ease-in-out infinite; }
+.fx-bow { transform-origin: 30px 58px; animation: fxBow 5.4s ease-in-out infinite; }
+.fx-mace { transform-origin: 93px 58px; animation: fxSway 4.8s ease-in-out infinite; }
+.fx-claws { transform-origin: 60px 55px; animation: fxFlex 2.9s ease-in-out infinite; }
+.fx-sash { animation: fxSway 3.4s ease-in-out infinite; }
+.fx-sash2 { animation: fxSway 3.4s ease-in-out infinite reverse; }
+.fx-vajra { transform-origin: 30px 57px; animation: fxSpin 11s linear infinite; }
+@keyframes fxSpin { to { transform: rotate(360deg); } }
+@keyframes fxPulse { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.18); opacity: .85; } }
+@keyframes fxBlink { 0%,92%,100% { opacity: 1; } 95% { opacity: .15; } }
+@keyframes fxFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes fxDraw { 0%,62%,100% { transform: translateX(-6px); opacity: .55; } 74% { transform: translateX(10px); opacity: 1; } 86% { transform: translateX(-2px); opacity: .8; } }
+@keyframes fxBow { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-4deg); } }
+@keyframes fxSway { 0%,100% { transform: skewX(0deg) translateX(0); } 50% { transform: skewX(9deg) translateX(3px); } }
+@keyframes fxFlex { 0%,100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+</style>
+<defs>
+<radialGradient id="gO"><stop offset="0" stop-color="#ffffff"/><stop offset=".3" stop-color="#00f0ff"/><stop offset="1" stop-color="#0051ff" stop-opacity="0"/></radialGradient>
+<radialGradient id="gFire"><stop offset="0" stop-color="#ffffff"/><stop offset=".25" stop-color="#ffd700"/><stop offset=".65" stop-color="#ff3300"/><stop offset="1" stop-color="#ff0044" stop-opacity="0"/></radialGradient>
+<radialGradient id="gBrahma"><stop offset="0" stop-color="#ffffff"/><stop offset=".35" stop-color="#ffe600"/><stop offset=".75" stop-color="#ff6600"/><stop offset="1" stop-color="#ff0000" stop-opacity="0"/></radialGradient>
+
+<!-- Vedic Chakra Crest -->
+<symbol id="i-chakra" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
+   <circle cx="32" cy="32" r="28" stroke-width="2.5"/>
+   <circle cx="32" cy="32" r="20" stroke-dasharray="4 2"/>
+   <circle cx="32" cy="32" r="10" stroke-width="1.5"/>
+   <circle cx="32" cy="32" r="4" fill="currentColor"/>
+   <path d="M32 4v16M32 44v16M4 32h16M44 32h16M12 12l12 12M40 40l12 12M52 12L40 24M24 40L12 52"/>
+</symbol>
+
+<!-- ============ PLAYER: Dharma Warrior (living, breathing, prismatic aura) ============ -->
+<symbol id="i-hero" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round">
+   <g class="fx-aura"><circle cx="60" cy="58" r="47" stroke="currentColor" stroke-width="1.4" stroke-dasharray="2 7" opacity=".55"/></g>
+   <g class="fx-ring"><circle cx="60" cy="58" r="35" stroke="#ffd700" stroke-width="1.6" stroke-dasharray="12 7" opacity=".8"/></g>
+   <g class="fx-ring2"><circle cx="60" cy="58" r="41" stroke="#00f0ff" stroke-width="1" stroke-dasharray="3 9" opacity=".45"/></g>
+   <path d="M60 16 L93 34 V74 L60 97 L27 74 V34 Z" stroke-width="2.5"/>
+   <path d="M60 25 L85 39 V70 L60 89 L35 70 V39 Z" opacity=".32"/>
+   <g class="fx-crown">
+     <path d="M48 26 L60 11 L72 26 L66 31 L54 31 Z" fill="currentColor" fill-opacity=".35" stroke-width="2"/>
+     <circle cx="60" cy="18" r="3.2" fill="#ffd700"/>
+   </g>
+   <path d="M48 41 Q60 36 72 41" stroke-width="3" stroke="#00f0ff"/>
+   <circle cx="60" cy="40" r="2.6" fill="#00f0ff" class="fx-eye"/>
+   <g class="fx-bow">
+     <path d="M30 21 Q7 56 30 95" stroke-width="4.5" stroke="currentColor"/>
+     <path d="M30 21 L30 95" stroke-width="1.4" stroke="#00f0ff" stroke-dasharray="3 2"/>
+   </g>
+   <g class="fx-arrow"><path d="M24 56 H88 M79 47 L95 56 L79 65" stroke-width="3.4" stroke="#ffd700"/></g>
+   <g class="fx-core">
+     <polygon points="60,51 69,65 51,65" fill="#00f0ff" stroke="currentColor" stroke-width="2"/>
+     <circle cx="60" cy="60" r="3.2" fill="#ffffff"/>
+   </g>
+   <path class="fx-sash" d="M44 44 Q34 60 44 80" stroke-width="3"/>
+   <path class="fx-sash2" d="M76 44 Q86 60 76 80" stroke-width="2.4" opacity=".8"/>
+</symbol>
+
+<!-- ============ OPPONENT: Asura Overlord (smouldering, horned, volcanic core) ============ -->
+<symbol id="i-foe" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round">
+   <g class="fx-aura"><circle cx="60" cy="58" r="47" stroke="currentColor" stroke-width="1.4" stroke-dasharray="6 5" opacity=".5"/></g>
+   <g class="fx-ring"><circle cx="60" cy="58" r="36" stroke="#ff2a5f" stroke-width="2" stroke-dasharray="5 9" opacity=".8"/></g>
+   <g class="fx-ring2"><circle cx="60" cy="58" r="43" stroke="#ff9100" stroke-width="1" stroke-dasharray="9 6" opacity=".4"/></g>
+   <g class="fx-horns">
+     <path d="M43 25 L25 7" stroke-width="4.5"/>
+     <path d="M77 25 L95 7" stroke-width="4.5"/>
+   </g>
+   <path d="M60 15 L96 34 V76 L60 103 L24 76 V34 Z" stroke-width="2.5"/>
+   <path d="M60 25 L88 41 V70 L60 93 L32 70 V41 Z" opacity=".3"/>
+   <path d="M44 30 L60 19 L76 30" stroke-width="3"/>
+   <g class="fx-eyes">
+     <path d="M43 41 L55 44" stroke-width="4" stroke="#ff2a5f"/>
+     <path d="M65 44 L77 41" stroke-width="4" stroke="#ff2a5f"/>
+     <circle cx="50" cy="42" r="2" fill="#fff"/>
+     <circle cx="70" cy="42" r="2" fill="#fff"/>
+   </g>
+   <g class="fx-mace">
+     <path d="M93 19 L93 97" stroke-width="3.5"/>
+     <circle cx="93" cy="33" r="13" stroke-width="3"/>
+     <path d="M83 33 H103 M93 23 V43" stroke-width="2" stroke="#ff2a5f"/>
+   </g>
+   <g class="fx-core">
+     <circle cx="60" cy="62" r="7.5" fill="#ff2a5f" stroke="currentColor" stroke-width="2"/>
+     <circle cx="60" cy="62" r="3" fill="#fff"/>
+   </g>
+   <g class="fx-claws">
+     <path d="M32 50 L17 43 L26 60" stroke-width="3"/>
+     <path d="M88 50 L103 43 L94 60" stroke-width="3"/>
+   </g>
+</symbol>
+
+<!-- ============ PLAYER 3: Suryaputra Karna (solar kavacha) ============ -->
+<symbol id="i-karna" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round">
+   <g class="fx-aura"><circle cx="60" cy="56" r="46" stroke="#ffd700" stroke-width="1.4" stroke-dasharray="8 5" opacity=".65"/></g>
+   <g class="fx-ring"><circle cx="60" cy="56" r="35" stroke="#ff9100" stroke-width="1.6" stroke-dasharray="4 6" opacity=".8"/></g>
+   <path d="M60 4 V16 M60 88 V100 M16 52 H28 M92 52 H104 M28 20 L38 30 M82 74 L92 84 M28 84 L38 74 M82 30 L92 20" stroke="#ffd700" stroke-width="2" opacity=".6"/>
+   <polygon points="60,20 90,36 90,74 60,92 30,74 30,36" stroke="#ffd700" stroke-width="2.5" fill="rgba(255,215,0,.14)"/>
+   <g class="fx-eyes">
+     <circle cx="44" cy="48" r="3.5" fill="#ffd700" stroke="#fff" stroke-width="1.4"/>
+     <circle cx="76" cy="48" r="3.5" fill="#ffd700" stroke="#fff" stroke-width="1.4"/>
+   </g>
+   <path d="M46 32 L60 16 L74 32 L66 36 L54 36 Z" fill="#ffd700" fill-opacity=".4" stroke="#ffd700" stroke-width="2"/>
+   <g class="fx-bow"><path d="M84 17 Q110 52 84 93" stroke-width="4.5" stroke="#ffd700"/><path d="M84 17 L84 93" stroke-width="1.4" stroke="#fff" stroke-dasharray="3 2"/></g>
+   <g class="fx-core"><circle cx="60" cy="58" r="8" fill="#ff6600" stroke="#ffd700" stroke-width="2.4"/><circle cx="60" cy="58" r="3" fill="#fff"/></g>
+</symbol>
+
+<!-- ============ PLAYER 4: Vrikodara Bhima (thunder vajra titan) ============ -->
+<symbol id="i-bhima" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round">
+   <g class="fx-aura"><circle cx="60" cy="56" r="46" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 5" opacity=".45"/></g>
+   <g class="fx-ring"><circle cx="60" cy="56" r="36" stroke="#00f0ff" stroke-width="1.6" stroke-dasharray="10 8" opacity=".75"/></g>
+   <path d="M60 10 L102 34 V84 L60 110 L18 84 V34 Z" stroke-width="3"/>
+   <path d="M40 32 L60 22 L80 32 L72 40 L48 40 Z" fill="rgba(0,240,255,.2)" stroke="#00f0ff" stroke-width="2"/>
+   <g class="fx-eyes"><path d="M44 46 H76" stroke-width="3.5" stroke="#00f0ff"/></g>
+   <g class="fx-vajra">
+     <path d="M30 17 L30 97" stroke-width="5" stroke="currentColor"/>
+     <circle cx="30" cy="30" r="15" stroke-width="3" stroke="#00f0ff"/>
+     <path d="M20 30 H40 M30 20 V40 M23 23 L37 37 M37 23 L23 37" stroke-width="2" stroke="#00f0ff"/>
+   </g>
+   <g class="fx-core">
+     <polygon points="60,50 68,64 52,64" fill="#00f0ff" stroke="#fff" stroke-width="2"/>
+     <path d="M58 54 L62 60 L57 60 L61 66" stroke="#fff" stroke-width="2"/>
+   </g>
+   <path d="M26 38 L12 46 M94 38 L108 46" stroke-width="4.5" stroke="currentColor"/>
+</symbol>
+
+<symbol id="i-orb" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="url(#gO)"/><circle cx="32" cy="32" r="7" fill="#fff"/><path d="M12 32 H52 M32 12 V52" stroke="#00f0ff" stroke-width="2" opacity=".8"/></symbol>
+<symbol id="i-orb-fire" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="url(#gFire)"/><circle cx="32" cy="32" r="8" fill="#ffd700"/><path d="M32 4 L36 22 L54 18 L40 32 L54 46 L36 42 L32 60 L28 42 L10 46 L24 32 L10 18 L28 22 Z" fill="#ff3300" opacity=".85"/></symbol>
+<symbol id="i-orb-brahma" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="url(#gBrahma)"/><circle cx="32" cy="32" r="22" stroke="#fff" stroke-width="2" stroke-dasharray="4 2"/><circle cx="32" cy="32" r="14" stroke="#ffd700" stroke-width="2.5"/><circle cx="32" cy="32" r="6" fill="#fff"/><path d="M32 2 V62 M2 32 H62 M11 11 L53 53 M11 53 L53 11" stroke="#fff" stroke-width="1.5" opacity=".75"/></symbol>
+<symbol id="i-karma" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 6l5 6-5 6-5-6z"/></symbol>
+<symbol id="i-gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3"/></symbol>
+<symbol id="i-help" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9.2 9a2.9 2.9 0 015.6 1c0 1.9-2.8 2.4-2.8 4"/><circle cx="12" cy="17.5" r="1" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-scroll" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h11a2 2 0 012 2v13a3 3 0 01-3 3H7a3 3 0 01-3-3V6a3 3 0 013-3z"/><path d="M8 8h8M8 12h8M8 16h5"/></symbol>
+</defs></svg>
+
+
+<canvas id="stars"></canvas>
+<div id="flashLayer" aria-hidden="true"></div>
+<main>
+<div id="headerArea">
+<svg class="crest" aria-hidden="true"><use href="#i-chakra"/></svg>
+<h1 data-i18n="title">SHASTRATH</h1>
+<p class="sub" id="sub" data-i18n="sub"></p>
+</div>
+
+<!-- 1. Name & Welcome Screen -->
+<section id="welcome" class="panel">
+ <h2 data-i18n="welcome"></h2><p data-i18n="welcomeSub"></p>
+ <input id="name0" maxlength="16" data-ph="namePh" autocomplete="nickname"><br>
+ <label><span data-i18n="lang"></span> <select id="lang0" class="langsel"></select></label><br>
+ <button id="go" data-i18n="start"></button>
+ <p class="welcome-foot"><svg class="ic"><use href="#i-scroll"/></svg> <span id="qCount">Sacred Riddles</span></p>
+</section>
+
+<!-- 2. Main Menu -->
+<section id="menu" class="hide">
+ <div class="panel">
+  <div class="bar"><div><b id="pname"></b> <span id="titleBadge" class="profile-title-tag hide"></span><br><small id="rank"></small></div>
+   <div class="res"><svg class="ic"><use href="#i-karma"/></svg><span id="karma">0</span><button id="btnHelp" class="help-btn" aria-label="How to play"><svg class="ic"><use href="#i-help"/></svg></button><button id="gear" aria-label="Settings"><svg class="ic"><use href="#i-gear"/></svg></button></div></div>
+  <div class="stats"><span><span data-i18n="wins"></span>: <b id="pw">0</b></span><span><span data-i18n="played"></span>: <b id="pp">0</b></span><span><span data-i18n="best"></span>: <b id="pb">0</b></span></div>
+ </div>
+
+ <div class="panel">
+  <label><span data-i18n="name"></span> <input id="name" maxlength="16" data-ph="namePh"></label>
+  <label><span data-i18n="lang"></span> <select id="lang" class="langsel"></select></label>
+  <p><label><span data-i18n="srv"></span> <input id="srv" size="34" placeholder="shastrath.onrender.com"></label><br><small data-i18n="srvHelp"></small></p>
+ </div>
+
+ <!-- Battle Format (1P, 2P, 3P, 4P) -->
+ <div class="panel"><b data-i18n="playersLabel">Battle Format</b>
+  <div class="grid" id="modePlayers">
+   <button data-c="1" data-i18n="m1p">1P Solo</button>
+   <button data-c="2" class="sel" data-i18n="m2p">2P Duel</button>
+   <button data-c="3" data-i18n="m3p">3P Tri-Yuddha</button>
+   <button data-c="4" data-i18n="m4p">4P Kurukshetra</button>
+  </div>
+ </div>
+
+ <!-- Battle Length (6 - 40 rounds) -->
+ <div class="panel"><b data-i18n="roundsLabel">Battle Length</b>
+  <div class="grid" id="modeRounds">
+   <button data-len="6" data-i18n="rdQuick">Quick (6 Rds)</button>
+   <button data-len="12" class="sel" data-i18n="rdStd">Standard (12 Rds)</button>
+   <button data-len="18" data-i18n="rdEpic">Mahayuddha (18 Rds)</button>
+   <button data-len="24" data-i18n="rdGrand">Grand (24 Rds)</button>
+   <button data-len="40" data-i18n="rdYuga">Yuga (40 Rds)</button>
+  </div>
+  <small data-i18n="roundsNote"></small>
+ </div>
+
+ <div class="panel"><b data-i18n="realm"></b>
+  <div class="grid" id="realms"><button data-r="M" class="sel" data-i18n="mahabharata"></button><button data-r="R" data-i18n="ramayana"></button><button data-r="V" data-i18n="vedas"></button><button data-r="P" data-i18n="puranas"></button><button data-r="A" data-i18n="mixed"></button></div></div>
+
+ <div class="panel"><b data-i18n="level"></b>
+  <div class="grid" id="levels"><button data-l="1">I · <span data-i18n="lvn1"></span></button><button data-l="2">II · <span data-i18n="lvn2"></span></button><button data-l="3">III · <span data-i18n="lvn3"></span></button><button data-l="0" class="sel" data-i18n="rising"></button></div>
+  <small data-i18n="risingNote"></small></div>
+
+ <div class="panel"><b data-i18n="play"></b>
+  <div class="grid">
+   <!-- Hardcore Mode: Masters of Shastrath -->
+   <button id="bHardcore" class="btn-hardcore">
+     <div class="hardcore-badge" data-i18n="badgeHardcore">50 HP LETHAL</div>
+     <b data-i18n="bHardcore">⚡ Masters of Shastrath (Hardcore)</b>
+     <span class="btn-sub" data-i18n="hardcoreSub">Level 3 Maharathi Riddles · Lethal 50 HP · 3x Karma</span>
+   </button>
+
+   <button id="bBot" data-i18n="bBot"></button>
+   <select id="lvl"><option value="easy" data-i18n="botE"></option><option value="medium" selected data-i18n="botM"></option><option value="hard" data-i18n="botH"></option></select>
+   <button id="bOn" data-i18n="bOn"></button>
+   <span><button id="bInv" data-i18n="bInv"></button> <input id="inv" class="hide" readonly size="38"> <button id="bCopy" class="hide" data-i18n="copy"></button><br><small id="invmsg"></small></span>
+   <span><input id="room" data-ph="roomPh" size="14"> <small data-i18n="roomNote"></small></span>
+  </div>
+ </div>
+</section>
+
+<!-- 3. Settings Screen -->
+<section id="settings" class="panel hide">
+ <b data-i18n="settings"></b>
+ <p><span data-i18n="scenery"></span> <select id="theme"><option value="" data-i18n="th0"></option><option value="ram" data-i18n="th1"></option><option value="lanka" data-i18n="th2"></option><option value="veda" data-i18n="th3"></option><option value="puran" data-i18n="th4"></option><option value="manus" data-i18n="th5"></option></select></p>
+ <p><span data-i18n="particle"></span> <select id="fx"><option value="40" data-i18n="fxL"></option><option value="110" selected data-i18n="fxM"></option><option value="220" data-i18n="fxU"></option></select></p>
+ <p><span data-i18n="fsz"></span> <input type="range" id="fs" min="14" max="22" value="16"></p>
+ <p><label><input type="checkbox" id="phon"> <span data-i18n="phon"></span></label></p>
+ <p><label><input type="checkbox" id="settSfx" checked> <span data-i18n="sfx">Audio SFX</span></label></p>
+ <p><label><input type="checkbox" id="settScan"> <span data-i18n="scanline">Hologram Scanlines</span></label></p>
+ <p><label><input type="checkbox" id="settMotion" checked> <span data-i18n="motion">Extra Animations</span></label></p>
+ <button id="back" data-i18n="back"></button>
+</section>
+
+<!-- 3b. How To Play / Help -->
+<section id="help" class="panel hide">
+ <div class="help-head"><svg class="ic"><use href="#i-scroll"/></svg><b data-i18n="helpTitle">How to Play SHASTRATH</b></div>
+ <p data-i18n="helpIntro"></p>
+ <ol class="help-list">
+  <li data-i18n="helpStep1"></li>
+  <li data-i18n="helpStep2"></li>
+  <li data-i18n="helpStep3"></li>
+  <li data-i18n="helpStep4"></li>
+  <li data-i18n="helpStep5"></li>
+  <li data-i18n="helpStep6"></li>
+  <li data-i18n="helpStep7"></li>
+  <li data-i18n="helpStep8"></li>
+ </ol>
+ <div class="help-tip"><b data-i18n="helpTipTitle"></b><br><span data-i18n="helpTip"></span></div>
+ <button id="helpClose" data-i18n="helpClose">Got it</button>
+</section>
+
+<!-- 4. Battle Screen -->
+<section id="game" class="hide">
+ <div class="bar" style="margin-bottom:8px">
+  <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+   <select id="gameLang" class="langsel game-lang-select" title="Switch Language"></select>
+   <button id="sfxBtn" class="hud-pill" title="Toggle Sound">🔊 <span data-i18n="sfx">SFX</span></button>
+   <button id="scanBtn" class="hud-pill" title="Toggle Scanlines">⚡ <span data-i18n="scanline">Scanlines</span></button>
+   <button id="gameHelpBtn" class="hud-pill" title="How to play">❔ <span data-i18n="helpBtn">Help</span></button>
+  </div>
+  <div class="combo-readout" id="comboBox"><span class="combo-fire">🔥</span> <b id="comboVal">0</b> <span data-i18n="combo">combo</span></div>
+ </div>
+
+ <!-- Dynamic Multi-player HUD Grid -->
+ <div class="battle-hud-grid" id="hudGrid"></div>
+
+ <!-- Battlefield Stage with up to 4 pods -->
+ <div class="stage players-2" id="stage">
+  <div class="fighter-pod p0" id="pod0"><svg class="fighter me" id="f0"><use href="#i-hero"/></svg><div class="pod-base"></div></div>
+  <div class="fighter-pod p1" id="pod1"><svg class="fighter foe" id="f1"><use href="#i-foe"/></svg><div class="pod-base"></div></div>
+  <div class="fighter-pod p2 hide" id="pod2"><svg class="fighter karna" id="f2"><use href="#i-karna"/></svg><div class="pod-base"></div></div>
+  <div class="fighter-pod p3 hide" id="pod3"><svg class="fighter bhima" id="f3"><use href="#i-bhima"/></svg><div class="pod-base"></div></div>
+ </div>
+
+ <!-- In-Between Round Cinematic Splash -->
+ <div id="roundSplash" class="round-splash hide">
+  <div class="splash-chakra">☸</div>
+  <h3 id="splashTitle">ROUND 1</h3>
+  <p id="splashSub">DHARMA SANGRAM</p>
+ </div>
+ 
+ <!-- Active Quiz Card -->
+ <div id="quizCard">
+  <div class="panel q-box">
+   <div class="bar q-bar">
+    <span class="q-timer">⏱ <b id="timer">10.0</b><span data-i18n="sec"></span></span>
+    <span id="rn" class="q-round"></span>
+    <button id="btnRecon" class="recon-btn" title="Divya Drishti (50:50 Recon)">👁️ <span data-i18n="reconBtn">Divya Drishti</span></button>
+    <span id="tag" class="tag q-tag"></span>
+   </div>
+   <p class="q" id="txt"></p>
+  </div>
+  <!-- High-Risk Brahmashira Round (Every 6th Round) -->
+  <button id="btnBrahmashira" class="brahmashira-toggle hide">
+    <span>⚡</span>
+    <span id="brahmaToggleText" data-i18n="brahmashiraBtn">Wield Brahmashira (3x Damage / 2x Penalty)</span>
+  </button>
+  <div class="opts" id="opts"></div>
+ </div>
+ 
+ <p id="msg"></p>
+ 
+ <!-- Match Result Screen (Hidden during battle) -->
+ <div id="endCard" class="hide">
+  <div id="banner"></div>
+  <p id="fin"></p>
+
+  <!-- The Cosmic Vault (Celestial Loot Box Screen) -->
+  <div id="vaultSection" class="vault-container hide">
+   <div class="vault-header">
+    <h3 data-i18n="vaultTitle">THE COSMIC VAULT</h3>
+    <p data-i18n="vaultSub">Celestial Reliquary of Kurukshetra</p>
+   </div>
+   <div id="vaultChest" class="vault-chest">
+    <div class="vault-mandala">☸</div>
+    <div class="vault-gem">💎</div>
+   </div>
+   <div id="vaultPrompt" class="vault-prompt" data-i18n="vaultTap">TAP TO UNLOCK CELESTIAL REWARD</div>
+   
+   <div id="vaultReward" class="vault-reward hide">
+    <h4 id="rewardKarmaText">+150 Karma</h4>
+    <div class="reward-title-badge" id="rewardTitleBadge">Defender of Dharma</div>
+    <p id="rewardDesc" data-i18n="vaultBlessing">Celestial Blessing Granted!</p>
+    <button id="btnClaimVault" class="btn-claim" data-i18n="claimBtn">Claim Blessing</button>
+   </div>
+  </div>
+
+  <!-- The Grand Kurukshetra Mastery Progression Ladder (Rathi to Maharathi) -->
+  <div class="mastery-panel">
+   <div class="mastery-header">
+    <h3 data-i18n="masteryTitle">Kurukshetra Yoddha Pariksha</h3>
+    <p data-i18n="masteryScale">Vedic Mastery Progression</p>
+   </div>
+   <div class="mastery-ladder" id="masteryLadder"></div>
+   <div class="metrics-grid" id="metricsGrid"></div>
+   <div class="shloka-box" data-i18n="shlokaBlessing">यतो धर्मस्ततो जयः · Where Dharma abides, Victory is assured</div>
+  </div>
+
+  <div class="panel"><b data-i18n="board">Scoreboard</b>
+   <div class="board" id="endBoard"></div>
+  </div>
+
+  <button id="bRematch" class="rematch-btn" data-i18n="rematchBtn">⚔️ Fight Next Duel (Unseen Riddles)</button>
+  <button id="quit" data-i18n="back">Back to menu</button>
+ </div>
+</section>
+</main>
+
+<script src="lang.js?v=4" onerror="window.LANGFAIL=1"></script>
+<script>
+if (typeof I18N === "undefined") {
+  document.querySelector("main").innerHTML = '<div class="panel"><b>lang.js could not be loaded.</b><p>Make sure <code>lang.js</code> is in the same folder and restart <code>python server.py</code>.</p></div>';
+  throw new Error("lang.js missing");
+}
+const $ = id => document.getElementById(id), store = (k, v) => { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch(e){} };
+
+/* ---------- Web Audio Synthesizer (Zero Dependencies) ---------- */
+let audioCtx = null, soundEnabled = store("sfx") !== "0";
+function getAudio() {
+  if (!audioCtx) {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (AC) audioCtx = new AC();
+  }
+  if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+  return audioCtx;
+}
+
+function playSfx(type) {
+  if (!soundEnabled) return;
+  try {
+    const ctx = getAudio(); if (!ctx) return;
+    const now = ctx.currentTime;
+    if (type === "click") {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = "sine"; o.frequency.setValueAtTime(850, now);
+      o.frequency.exponentialRampToValueAtTime(320, now + 0.05);
+      g.gain.setValueAtTime(0.12, now); g.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
+      o.connect(g).connect(ctx.destination); o.start(now); o.stop(now + 0.05);
+    } else if (type === "shoot" || type === "shoot_fast") {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = "sawtooth";
+      const startF = type === "shoot_fast" ? 440 : 260, endF = type === "shoot_fast" ? 1500 : 950;
+      o.frequency.setValueAtTime(startF, now);
+      o.frequency.exponentialRampToValueAtTime(endF, now + 0.25);
+      g.gain.setValueAtTime(0.2, now); g.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+      o.connect(g).connect(ctx.destination); o.start(now); o.stop(now + 0.3);
+    } else if (type === "hit" || type === "divya_hit") {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = "triangle"; o.frequency.setValueAtTime(140, now);
+      o.frequency.exponentialRampToValueAtTime(36, now + 0.4);
+      g.gain.setValueAtTime(type === "divya_hit" ? 0.35 : 0.22, now);
+      g.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
+      o.connect(g).connect(ctx.destination); o.start(now); o.stop(now + 0.45);
+    } else if (type === "clash") {
+      const o1 = ctx.createOscillator(), o2 = ctx.createOscillator(), g = ctx.createGain();
+      o1.type = "sawtooth"; o2.type = "sawtooth";
+      o1.frequency.setValueAtTime(320, now); o2.frequency.setValueAtTime(328, now);
+      o1.frequency.linearRampToValueAtTime(580, now + 0.55); o2.frequency.linearRampToValueAtTime(588, now + 0.55);
+      g.gain.setValueAtTime(0.25, now); g.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
+      o1.connect(g); o2.connect(g); g.connect(ctx.destination);
+      o1.start(now); o2.start(now); o1.stop(now + 0.6); o2.stop(now + 0.6);
+    } else if (type === "correct") {
+      [523.25, 659.25, 783.99].forEach((freq, idx) => {
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = "sine"; o.frequency.value = freq;
+        g.gain.setValueAtTime(0.1, now + idx * 0.05);
+        g.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.05 + 0.4);
+        o.connect(g).connect(ctx.destination); o.start(now + idx * 0.05); o.stop(now + idx * 0.05 + 0.4);
+      });
+    } else if (type === "wrong") {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = "sawtooth"; o.frequency.setValueAtTime(160, now);
+      o.frequency.linearRampToValueAtTime(110, now + 0.35);
+      g.gain.setValueAtTime(0.18, now); g.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+      o.connect(g).connect(ctx.destination); o.start(now); o.stop(now + 0.35);
+    } else if (type === "brahma") {
+      [108, 216, 432].forEach((freq, i) => {
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = "sine"; o.frequency.setValueAtTime(freq, now);
+        g.gain.setValueAtTime(0.15 / (i + 1), now);
+        g.gain.exponentialRampToValueAtTime(0.001, now + 3.2);
+        o.connect(g).connect(ctx.destination); o.start(now); o.stop(now + 3.2);
+      });
+    } else if (type === "divya") {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = "sine"; o.frequency.setValueAtTime(440, now);
+      o.frequency.exponentialRampToValueAtTime(880, now + 0.4);
+      g.gain.setValueAtTime(0.16, now); g.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
+      o.connect(g).connect(ctx.destination); o.start(now); o.stop(now + 0.45);
+    } else if (type === "combo") {
+      [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => {
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = "triangle"; o.frequency.value = f;
+        g.gain.setValueAtTime(0.1, now + i * 0.045);
+        g.gain.exponentialRampToValueAtTime(0.001, now + i * 0.045 + 0.35);
+        o.connect(g).connect(ctx.destination); o.start(now + i * 0.045); o.stop(now + i * 0.045 + 0.35);
+      });
+    } else if (type === "tick") {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = "sine"; o.frequency.value = 1100;
+      g.gain.setValueAtTime(0.03, now); g.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
+      o.connect(g).connect(ctx.destination); o.start(now); o.stop(now + 0.03);
+    } else if (type === "round_chime") {
+      [440, 659.25, 880].forEach((freq, i) => {
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = "triangle"; o.frequency.setValueAtTime(freq, now + i * 0.07);
+        g.gain.setValueAtTime(0.12, now + i * 0.07);
+        g.gain.exponentialRampToValueAtTime(0.001, now + i * 0.07 + 0.6);
+        o.connect(g).connect(ctx.destination); o.start(now + i * 0.07); o.stop(now + i * 0.07 + 0.6);
+      });
+    } else if (type === "shankha") {
+      // Vedic Shankhanaad (conch horn) resonance simulation
+      [220, 330, 440, 550].forEach((freq, idx) => {
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = idx % 2 === 0 ? "sawtooth" : "sine";
+        o.frequency.setValueAtTime(freq * 0.95, now);
+        o.frequency.linearRampToValueAtTime(freq * 1.05, now + 1.2);
+        o.frequency.exponentialRampToValueAtTime(freq * 0.98, now + 2.5);
+        g.gain.setValueAtTime(0.001, now);
+        g.gain.linearRampToValueAtTime(0.12 / (idx + 1), now + 0.4);
+        g.gain.exponentialRampToValueAtTime(0.001, now + 2.6);
+        o.connect(g).connect(ctx.destination); o.start(now); o.stop(now + 2.6);
+      });
+    } else if (type === "shield_gain") {
+      [523.25, 659.25, 1046.5].forEach((f, idx) => {
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = "sine"; o.frequency.setValueAtTime(f, now + idx * 0.08);
+        g.gain.setValueAtTime(0.12, now + idx * 0.08);
+        g.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.5);
+        o.connect(g).connect(ctx.destination); o.start(now + idx * 0.08); o.stop(now + idx * 0.08 + 0.5);
+      });
+    } else if (type === "shield_break") {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = "sawtooth"; o.frequency.setValueAtTime(800, now);
+      o.frequency.exponentialRampToValueAtTime(120, now + 0.35);
+      g.gain.setValueAtTime(0.25, now); g.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+      o.connect(g).connect(ctx.destination); o.start(now); o.stop(now + 0.35);
+    } else if (type === "recon") {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = "sine"; o.frequency.setValueAtTime(320, now);
+      o.frequency.exponentialRampToValueAtTime(1760, now + 0.45);
+      g.gain.setValueAtTime(0.18, now); g.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
+      o.connect(g).connect(ctx.destination); o.start(now); o.stop(now + 0.5);
+    } else if (type === "brahmashira_charge") {
+      const o1 = ctx.createOscillator(), o2 = ctx.createOscillator(), g = ctx.createGain();
+      o1.type = "sawtooth"; o2.type = "sine";
+      o1.frequency.setValueAtTime(70, now); o1.frequency.linearRampToValueAtTime(220, now + 0.6);
+      o2.frequency.setValueAtTime(440, now); o2.frequency.linearRampToValueAtTime(880, now + 0.6);
+      g.gain.setValueAtTime(0.22, now); g.gain.exponentialRampToValueAtTime(0.01, now + 0.65);
+      o1.connect(g); o2.connect(g); g.connect(ctx.destination);
+      o1.start(now); o2.start(now); o1.stop(now + 0.65); o2.stop(now + 0.65);
+    } else if (type === "vault_rumble") {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = "triangle"; o.frequency.setValueAtTime(55, now);
+      o.frequency.linearRampToValueAtTime(110, now + 0.8);
+      g.gain.setValueAtTime(0.28, now); g.gain.exponentialRampToValueAtTime(0.01, now + 0.9);
+      o.connect(g).connect(ctx.destination); o.start(now); o.stop(now + 0.9);
+    } else if (type === "vault_open") {
+      [440, 554.37, 659.25, 880, 1108.7].forEach((f, idx) => {
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = "sine"; o.frequency.setValueAtTime(f, now + idx * 0.09);
+        g.gain.setValueAtTime(0.14, now + idx * 0.09);
+        g.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.09 + 0.7);
+        o.connect(g).connect(ctx.destination); o.start(now + idx * 0.09); o.stop(now + idx * 0.09 + 0.7);
+      });
+    }
+  } catch(e) {}
+}
+
+/* ---------- Language Engine & Live Question Re-rendering ---------- */
+let LG = store("lang"); if (!I18N[LG]) LG = "en";
+const T = (k, v) => {
+  let s = (I18N[LG] && I18N[LG][k]) ?? I18N.en[k] ?? k;
+  for (const x in v || {}) s = s.replace("{" + x + "}", v[x]);
+  return s;
+};
+
+const LANG_OPTIONS = [["en","English"],["hi","हिन्दी"],["mr","मराठी"],["sa","संस्कृतम्"],["ta","தமிழ்"],["te","తెలుగు"]];
+document.querySelectorAll(".langsel").forEach(s => {
+  s.innerHTML = LANG_OPTIONS.map(l => `<option value="${l[0]}">${l[1]}</option>`).join("");
+});
+
+let msgK = null, currentQ = null;
+
+function applyLang() {
+  document.querySelectorAll("[data-i18n]").forEach(e => e.textContent = T(e.dataset.i18n));
+  document.querySelectorAll("[data-ph]").forEach(e => e.placeholder = T(e.dataset.ph));
+  document.documentElement.lang = LG;
+  document.title = T("title");
+  document.querySelectorAll(".langsel").forEach(s => s.value = LG);
+  if ($("phon").checked) $("sub").textContent = T("phonSub");
+  if (msgK) msg(msgK[0], msgK[1]);
+  profileUI();
+  updateSfxButtons();
+  if (!$("game").classList.contains("hide")) {
+    NM2();
+    if (currentQ) {
+      const tr = (currentQ.all_tr && currentQ.all_tr[LG]) || { text: currentQ.text, opts: currentQ.opts };
+      $("txt").textContent = tr.text;
+      const o = $("opts");
+      if (o && o.children.length === tr.opts.length) {
+        tr.opts.forEach((optText, idx) => {
+          const btn = o.children[idx];
+          btn.textContent = "ABCD"[idx] + ")  " + optText;
+        });
+      }
+      $("rn").textContent = currentQ.final ? T("rFinal").split(":")[0] : currentQ.bonus ? T("rBonus").split(":")[0] : T("round", { n: currentQ.n });
+      $("tag").textContent = realmLabel(currentQ.epic) + " · " + T("lvn" + currentQ.lvl);
+    }
+  }
+}
+
+document.querySelectorAll(".langsel").forEach(s => s.onchange = e => {
+  LG = e.target.value;
+  store("lang", LG);
+  applyLang();
+  playSfx("click");
+  if (ws && ws.readyState === WebSocket.OPEN) {
+    ws.send(JSON.stringify({ type: "set_lang", lang: LG }));
+  }
+});
+function msg(k, v) { msgK = k ? [k, v] : null; $("msg").textContent = k ? T(k, v) : ""; }
+
+/* Realm code -> display key (M = Mahabharata, R = Ramayana, V = Vedas, P = Puranas, A = All) */
+const REALM_KEY = { M: "mahabharata", R: "ramayana", V: "vedas", P: "puranas", A: "mixed" };
+const realmLabel = e => T(REALM_KEY[e] || "mixed");
+
+function updateSfxButtons() {
+  const label = (soundEnabled ? "🔊 " : "🔇 ") + T("sfx");
+  $("sfxBtn").textContent = label;
+  $("settSfx").checked = soundEnabled;
+}
+$("sfxBtn").onclick = () => {
+  soundEnabled = !soundEnabled;
+  store("sfx", soundEnabled ? "1" : "0");
+  updateSfxButtons();
+  if (soundEnabled) playSfx("click");
+};
+$("settSfx").onchange = e => {
+  soundEnabled = e.target.checked;
+  store("sfx", soundEnabled ? "1" : "0");
+  updateSfxButtons();
+  if (soundEnabled) playSfx("click");
+};
+
+const scanlinesActive = store("scan") === "1";
+if (scanlinesActive) document.body.classList.add("scanlines");
+$("settScan").checked = scanlinesActive;
+function toggleScanlines() {
+  const on = document.body.classList.toggle("scanlines");
+  store("scan", on ? "1" : "0");
+  $("settScan").checked = on;
+  playSfx("click");
+}
+$("scanBtn").onclick = toggleScanlines;
+$("settScan").onchange = toggleScanlines;
+
+/* Extra Animations toggle (perf friendly on low-end phones) */
+const motionOn = store("motion") !== "0";
+if (!motionOn) document.body.classList.add("no-motion");
+$("settMotion").checked = motionOn;
+$("settMotion").onchange = e => {
+  const on = e.target.checked;
+  document.body.classList.toggle("no-motion", !on);
+  store("motion", on ? "1" : "0");
+  playSfx("click");
+};
+
+/* ---------- Player Profile & Rathi-Maharathi Hierarchy ---------- */
+const MASTERY_RANKS = [
+  { id: "t_padati", key: "t_padati", descKey: "t_padati_d", icon: "🛡️", score: 0, acc: 0 },
+  { id: "t_ashwarohi", key: "t_ashwarohi", descKey: "t_ashwarohi_d", icon: "🐎", score: 300, acc: 40 },
+  { id: "t_rathi", key: "t_rathi", descKey: "t_rathi_d", icon: "🏹", score: 600, acc: 55 },
+  { id: "t_atirathi", key: "t_atirathi", descKey: "t_atirathi_d", icon: "⚡", score: 1000, acc: 70 },
+  { id: "t_maharathi", key: "t_maharathi", descKey: "t_maharathi_d", icon: "🔱", score: 1500, acc: 85 },
+  { id: "t_atimaharathi", key: "t_atimaharathi", descKey: "t_atimaharathi_d", icon: "✨", score: 2000, acc: 92 },
+  { id: "t_param", key: "t_param", descKey: "t_param_d", icon: "👑", score: 2500, acc: 98 }
+];
+
+function calcMasteryTier(score, right, total) {
+  const acc = total > 0 ? (right / total) * 100 : 0;
+  let earnedIdx = 0;
+  for (let i = MASTERY_RANKS.length - 1; i >= 0; i--) {
+    if (score >= MASTERY_RANKS[i].score && acc >= MASTERY_RANKS[i].acc) {
+      earnedIdx = i;
+      break;
+    }
+  }
+  return { idx: earnedIdx, rank: MASTERY_RANKS[earnedIdx], acc: Math.round(acc) };
+}
+
+let P = { name: "", karma: 0, wins: 0, played: 0, best: 0, titles: [], equippedTitle: "" };
+try { Object.assign(P, JSON.parse(store("aw") || "{}")); } catch(e) {}
+if (!P.titles) P.titles = [];
+const saveP = () => store("aw", JSON.stringify(P));
+
+function profileUI() {
+  $("pname").textContent = P.name || T("guest");
+  const rankIdx = P.karma >= 1500 ? 4 : P.karma >= 800 ? 3 : P.karma >= 400 ? 2 : 0;
+  $("rank").textContent = T(MASTERY_RANKS[rankIdx].key);
+  $("karma").textContent = P.karma; $("pw").textContent = P.wins;
+  $("pp").textContent = P.played; $("pb").textContent = P.best;
+
+  const tb = $("titleBadge");
+  if (tb) {
+    if (P.equippedTitle) {
+      tb.textContent = "👑 " + P.equippedTitle;
+      tb.classList.remove("hide");
+    } else {
+      tb.classList.add("hide");
+    }
+  }
+
+  const b = $("go");
+  if (P.name && $("name0").value.trim() === P.name) b.textContent = T("continueAs", { n: P.name });
+  else b.textContent = T("start");
+}
+
+$("name0").value = P.name;
+$("name0").oninput = profileUI;
+
+function setScreen(name) {
+  ["welcome", "menu", "settings", "help", "game"].forEach(id => {
+    const el = $(id);
+    if (el) el.classList.toggle("hide", id !== name);
+  });
+  const ha = $("headerArea");
+  if (ha) ha.classList.toggle("compact", name === "game");
+  window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
+}
+
+/* ---------- Help / How To Play ---------- */
+let helpReturn = "menu";
+function openHelp() {
+  playSfx("click");
+  helpReturn = $("game").classList.contains("hide") ? "menu" : "game";
+  setScreen("help");
+}
+$("btnHelp").onclick = openHelp;
+$("gameHelpBtn").onclick = openHelp;
+$("helpClose").onclick = () => { playSfx("click"); setScreen(helpReturn); };
+
+function enter() {
+  const n = $("name0").value.trim();
+  if (!n) { $("name0").focus(); $("name0").placeholder = T("needName"); return; }
+  P.name = n; saveP(); $("name").value = n; profileUI();
+  playSfx("click");
+  setScreen("menu");
+}
+$("go").onclick = enter;
+$("name0").onkeydown = e => { if (e.key == "Enter") enter(); };
+$("name").oninput = e => { P.name = e.target.value.trim() || P.name; saveP(); profileUI(); };
+
+/* ---------- Menu Setup ---------- */
+let NM = ["", ""], realm = "M", qlevel = 0, me = 0, tick, fxN = 110, over = false, isBot = false;
+let playersCount = 2, roundsCount = 12;
+
+document.querySelectorAll("#modePlayers button").forEach(b => b.onclick = () => {
+  playersCount = +b.dataset.c; playSfx("click");
+  document.querySelectorAll("#modePlayers button").forEach(x => x.classList.toggle("sel", x == b));
+});
+
+document.querySelectorAll("#modeRounds button").forEach(b => b.onclick = () => {
+  roundsCount = +b.dataset.len; playSfx("click");
+  document.querySelectorAll("#modeRounds button").forEach(x => x.classList.toggle("sel", x == b));
+});
+
+document.querySelectorAll("#realms button").forEach(b => b.onclick = () => {
+  realm = b.dataset.r; playSfx("click");
+  document.querySelectorAll("#realms button").forEach(x => x.classList.toggle("sel", x == b));
+});
+
+document.querySelectorAll("#levels button").forEach(b => b.onclick = () => {
+  qlevel = +b.dataset.l; playSfx("click");
+  document.querySelectorAll("#levels button").forEach(x => x.classList.toggle("sel", x == b));
+});
+
+$("gear").onclick = () => { playSfx("click"); setScreen("settings"); };
+$("back").onclick = () => { playSfx("click"); setScreen("menu"); };
+$("theme").onchange = e => {
+  document.body.classList.remove("ram", "lanka", "veda", "puran", "manus");
+  if (e.target.value) document.body.classList.add(e.target.value);
+  store("theme", e.target.value || "");
+};
+$("fx").onchange = e => { fxN = +e.target.value; initStars(); };
+$("fs").oninput = e => document.body.style.fontSize = e.target.value + "px";
+$("phon").onchange = e => $("sub").textContent = e.target.checked ? T("phonSub") : T("sub");
+
+const ONLINE_SRV = "https://shastrath.onrender.com";
+/* Default to the server that is serving this page (instant, no cold start).
+   Falls back to the hosted Render URL when the page is opened from a file. */
+const defSrv = () => (/^https?:$/.test(location.protocol) && location.origin && location.origin !== "null")
+  ? location.origin : ONLINE_SRV;
+const isLocalAddr = a => /^(wss?:\/\/|https?:\/\/)?(localhost|127\.|192\.168\.|10\.|0\.0\.0\.0)/i.test(a || "");
+let srvCustom = store("srv_custom") === "1";
+if (!srvCustom) store("srv", defSrv());
+else if (isLocalAddr(store("srv"))) store("srv", defSrv());
+$("srv").value = store("srv") || defSrv();
+
+function wsUrl() {
+  let u = $("srv").value.trim() || defSrv(); store("srv", u);
+  u = u.replace(/^https:\/\//, "wss://").replace(/^http:\/\//, "ws://");
+  if (!/^wss?:\/\//.test(u)) u = (location.protocol === "https:" ? "wss://" : "ws://") + u;
+  return u.replace(/\/+$/, "").replace(/\/ws$/, "") + "/ws";
+}
+
+/* Server address changed: drop the old socket and open a fresh one to the new host */
+$("srv").onchange = () => {
+  srvCustom = true; store("srv_custom", "1");
+  store("srv", $("srv").value.trim());
+  if (!gameActive) {
+    try { ws && ws.close(); } catch(e) {}
+    ws = null; pendingPayload = null;
+    try { openSocket(); keepAlive(); } catch(e) {}
+    msg("srvChanged");
+  }
+};
+
+/* ---------- Socket: opened EARLY (warm-up) so a match starts instantly ---------- */
+let ws = null, wsOpen = false, pendingPayload = null, gameActive = false;
+
+function wsSend(obj) {
+  try {
+    if (ws && ws.readyState === WebSocket.OPEN) { ws.send(JSON.stringify(obj)); return true; }
+  } catch(e) {}
+  return false;
+}
+
+function openSocket() {
+  if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) return ws;
+  try {
+    ws = new WebSocket(wsUrl());
+  } catch(e) { return null; }
+  ws.onopen = () => {
+    wsOpen = true;
+    if (pendingPayload) { try { ws.send(JSON.stringify(pendingPayload)); } catch(e) {} pendingPayload = null; }
+  };
+  ws.onmessage = e => {
+    let d;
+    try { d = JSON.parse(e.data); } catch(err) { return; }
+    try { on(d); } catch(err) { if (window.console) console.error("SHASTRATH handler error:", err); }
+  };
+  ws.onerror = () => { if (gameActive && !over) { over = true; msg("noServer"); $("endCard").classList.remove("hide"); } };
+  ws.onclose = () => {
+    wsOpen = false;
+    if (gameActive && !over && !$("game").classList.contains("hide")) { over = true; msg("disc"); $("endCard").classList.remove("hide"); }
+  };
+  return ws;
+}
+
+function connect(first) {
+  const s = openSocket();
+  if (!s) { msg("invalidAddr"); $("quit").classList.remove("hide"); return; }
+  gameActive = true;
+  if (s.readyState === WebSocket.OPEN) {
+    try { s.send(JSON.stringify(first)); } catch(e) { pendingPayload = first; }
+  } else {
+    pendingPayload = first;          // fired the moment the socket is ready
+  }
+}
+
+const httpBase = () => wsUrl().replace(/^ws/, "http").replace(/\/ws$/, "");
+/* Keep the Render instance awake so the next match opens with zero delay */
+function keepAlive() { fetch(httpBase() + "/api/ping", { cache: "no-store" }).catch(() => {}); }
+const rp = new URLSearchParams(location.search).get("room");
+if (rp) $("room").value = rp.toUpperCase().slice(0, 12);
+
+$("bInv").onclick = async () => {
+  playSfx("click");
+  try {
+    const d = await (await fetch(httpBase() + "/api/link")).json();
+    const base = d.url || httpBase();
+    if (!base) { $("invmsg").textContent = T("invNotReady"); return; }
+    const code = Math.random().toString(36).slice(2, 6).toUpperCase(); $("room").value = code;
+    $("inv").value = base + "/?room=" + code; $("inv").classList.remove("hide"); $("bCopy").classList.remove("hide");
+    $("invmsg").textContent = T("invSent");
+  } catch(e) { $("invmsg").textContent = T("noServerShort"); }
+};
+
+$("bCopy").onclick = () => {
+  playSfx("click"); $("inv").select();
+  try { navigator.clipboard.writeText($("inv").value); } catch(e) { document.execCommand("copy"); }
+  $("invmsg").textContent = T("copied");
+};
+
+const base = () => ({
+  name: P.name || $("name").value || T("guest"),
+  realm,
+  qlevel,
+  lang: LG,
+  players_count: playersCount,
+  rounds: roundsCount
+});
+
+let ALL_QUESTIONS = [];
+fetch("questions.json").then(r => r.json()).then(d => {
+  if (d && d.questions) {
+    ALL_QUESTIONS = d.questions;
+    const qc = $("qCount");
+    if (qc) qc.textContent = ALL_QUESTIONS.length + " " + T("qCountSuffix");
+  }
+}).catch(e => {});
+
+let isHardcore = false;
+let brahmashiraEmpowered = false;
+let kavachaActive = false;
+let reconAvailable = true;
+let reconActiveThisRound = false;
+let maxHp = 100;
+let lastTotalRounds = 12;
+
+$("bHardcore").onclick = () => {
+  playSfx("click");
+  isBot = true;
+  isHardcore = true;
+  show();
+  connect({ type: "bot", level: "hard", qlevel: 3, rounds: roundsCount || 18, hardcore: true, ...base() });
+};
+
+$("bBot").onclick = () => { playSfx("click"); isBot = true; isHardcore = false; show(); connect({ type: "bot", level: $("lvl").value, ...base() }); };
+$("bOn").onclick = () => { playSfx("click"); isBot = false; isHardcore = false; show(); msg("looking"); connect({ type: "online", room: $("room").value.trim(), ...base() }); };
+$("bRematch").onclick = () => {
+  playSfx("click");
+  show();
+  connect({ type: "rematch", level: isHardcore ? "hard" : $("lvl").value, qlevel: isHardcore ? 3 : qlevel, rounds: roundsCount || 18, hardcore: isHardcore, ...base() });
+};
+
+$("quit").onclick = () => {
+  playSfx("click"); gameActive = false; ws && ws.close(); currentQ = null;
+  setScreen("menu");
+  document.body.classList.remove("brahma"); msg(null); profileUI();
+};
+
+$("btnBrahmashira").onclick = () => {
+  brahmashiraEmpowered = !brahmashiraEmpowered;
+  $("btnBrahmashira").classList.toggle("empowered", brahmashiraEmpowered);
+  playSfx("brahmashira_charge");
+  if (brahmashiraEmpowered) {
+    msg("brahmashiraActive");
+    anim($("stage"), "clash", 500);
+  } else {
+    msg(null);
+  }
+};
+
+$("btnRecon").onclick = () => {
+  if (!reconAvailable) {
+    msg("reconSpent");
+    return;
+  }
+  reconAvailable = false;
+  reconActiveThisRound = true;
+  $("btnRecon").classList.add("spent");
+  playSfx("recon");
+  pop(me, "👁️ DIVYA DRISHTI!", "divya");
+
+  const o = $("opts");
+  if (!o || o.children.length !== 4) return;
+  const currentTxt = $("txt").textContent;
+  let correctIdx = -1;
+  if (ALL_QUESTIONS.length > 0) {
+    const matched = ALL_QUESTIONS.find(q => q.q === currentTxt || (q.tr && Object.values(q.tr).some(t => t.q === currentTxt)));
+    if (matched) {
+      const correctText = matched.options[matched.answer];
+      correctIdx = [...o.children].findIndex(b => b.textContent.includes(correctText));
+    }
+  }
+  if (correctIdx === -1) correctIdx = Math.floor(Math.random() * 4);
+
+  const wrongIndices = [0, 1, 2, 3].filter(idx => idx !== correctIdx);
+  const toBanish = wrongIndices.sort(() => 0.5 - Math.random()).slice(0, 2);
+  toBanish.forEach(idx => {
+    if (o.children[idx]) {
+      o.children[idx].classList.add("banished");
+      o.children[idx].disabled = true;
+    }
+  });
+  msg("reconUsed");
+};
+
+/* ---------- Battle HUD Generation (1-4 Players) ---------- */
+function setupBattleHud(names) {
+  const hg = $("hudGrid");
+  hg.innerHTML = "";
+  names.forEach((name, i) => {
+    const isMe = (i === me);
+    const card = document.createElement("div");
+    card.className = "hud-card" + (isMe ? " me" : "");
+    card.id = "hcard" + i;
+    const displayName = name;
+    const initialRank = (isHardcore && isMe) ? T("badgeHardcore") : T("t_padati");
+    const initialHpWidth = "100%";
+
+    card.innerHTML = `
+      <div class="card-head">
+        <span class="c-name" id="cname${i}">${displayName}${isMe ? " (" + T("you") + ")" : ""}<span id="kavachaBadge${i}" class="kavacha-badge hide">${T("kavachaBadge")}</span></span>
+        <span class="c-rank-badge" id="crank${i}">${initialRank}</span>
+      </div>
+      <div class="card-bars">
+        <div class="hp"><i id="h${i}" style="width:${initialHpWidth}" data-hp="${maxHp}"></i></div>
+        <div class="hp gg" id="gg${i}"><i id="g${i}" style="width:0%"></i></div>
+      </div>
+      <div class="card-foot">
+        <span>★ <b id="s${i}">0</b></span>
+        <span class="stk" id="k${i}"></span>
+      </div>
+    `;
+    hg.appendChild(card);
+  });
+}
+
+function updateStagePods(count) {
+  const st = $("stage");
+  st.className = "stage players-" + count;
+  for (let i = 0; i < 4; i++) {
+    const pod = $("pod" + i);
+    if (pod) {
+      pod.classList.toggle("hide", i >= count);
+      pod.classList.remove("has-shield");
+    }
+  }
+}
+
+function show() {
+  over = false; currentQ = null;
+  brahmashiraEmpowered = false;
+  kavachaActive = false;
+  reconAvailable = true;
+  reconActiveThisRound = false;
+  gameActive = true;
+  setCombo(0);
+  maxHp = isHardcore ? 50 : 100;
+
+  const brBtn = $("btnBrahmashira");
+  if (brBtn) { brBtn.classList.add("hide"); brBtn.classList.remove("empowered"); }
+  const rBtn = $("btnRecon");
+  if (rBtn) rBtn.classList.remove("spent");
+  const vs = $("vaultSection");
+  if (vs) vs.classList.add("hide");
+  const vr = $("vaultReward");
+  if (vr) vr.classList.add("hide");
+  const vc = $("vaultChest");
+  if (vc) vc.classList.remove("rumbling");
+
+  setScreen("game");
+  $("quizCard").classList.remove("hide");
+  $("endCard").classList.add("hide");
+  $("opts").innerHTML = ""; $("txt").textContent = "";
+  $("banner").innerHTML = ""; $("fin").textContent = "";
+  document.body.classList.remove("brahma");
+}
+
+const NM2 = () => {
+  NM.forEach((name, i) => {
+    const cn = $("cname" + i);
+    if (cn) cn.textContent = name + (i === me ? " (" + T("you") + ")" : "");
+  });
+};
+
+/* ---------- Combat Projectiles & Popups ---------- */
+function pop(podIdx, text, cls) {
+  const e = document.createElement("div");
+  e.className = "pop " + (podIdx === 0 ? "l " : podIdx === 1 ? "r " : "c ") + (cls || "");
+  e.textContent = text;
+  $("stage").appendChild(e);
+  setTimeout(() => e.remove(), 1500);
+}
+
+function anim(el, c, ms) {
+  if (!el) return;
+  el.classList.remove(c); void el.getBoundingClientRect(); el.classList.add(c);
+  setTimeout(() => el.classList.remove(c), ms);
+}
+
+/* ---------- Screen flash / impact effects ---------- */
+function flash(color, ms) {
+  const f = $("flashLayer");
+  if (!f) return;
+  f.style.background = color;
+  f.classList.remove("on"); void f.offsetWidth; f.classList.add("on");
+  setTimeout(() => f.classList.remove("on"), ms || 300);
+}
+
+/* Floating damage / heal number over a HUD card */
+function dmgNumber(idx, text, kind) {
+  const card = $("hcard" + idx);
+  if (!card) return;
+  const e = document.createElement("span");
+  e.className = "dmg-num " + (kind || "dmg");
+  e.textContent = text;
+  card.appendChild(e);
+  setTimeout(() => e.remove(), 1200);
+}
+
+/* Combo / streak meter */
+let comboCount = 0;
+function setCombo(n) {
+  comboCount = n;
+  const el = $("comboVal"), box = $("comboBox");
+  if (!el || !box) return;
+  el.textContent = n;
+  box.classList.toggle("hot", n >= 3);
+  if (n >= 2) {
+    anim(box, "bump", 500);
+    if (n === 3) { playSfx("combo"); flash("rgba(255,215,107,.16)", 260); }
+  }
+}
+
+function fireBeam(fromIdx, toIdx, isFire, isBrahma) {
+  const st = $("stage"), p = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  const sym = isBrahma ? "#i-orb-brahma" : isFire ? "#i-orb-fire" : "#i-orb";
+  p.setAttribute("class", "proj" + (isFire ? " fire" : "") + (isBrahma ? " brahma" : ""));
+  p.innerHTML = `<use href="${sym}"/>`;
+  p.style.transition = "none";
+
+  const podFrom = $("pod" + fromIdx), podTo = $("pod" + toIdx);
+  const leftFrom = podFrom ? podFrom.offsetLeft : 50;
+  const leftTo = podTo ? podTo.offsetLeft : 50;
+  anim($("f" + fromIdx), "fire-anim", 450);
+
+  p.style.left = leftFrom + "px";
+  st.appendChild(p);
+
+  playSfx(isBrahma ? "brahma" : isFire ? "shoot_fast" : "shoot");
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    p.style.transition = isBrahma ? "left .75s cubic-bezier(.2,.8,.2,1)" : "left .55s ease-in";
+    p.style.left = leftTo + "px";
+  }));
+  setTimeout(() => p.remove(), 750);
+}
+
+function triggerRoundSplash(roundN, final, bonus) {
+  const sp = $("roundSplash");
+  $("splashTitle").textContent = final ? T("rFinal").split(":")[0] : bonus ? T("rBonus").split(":")[0] : T("round", { n: roundN });
+  $("splashSub").textContent = final ? "BRAHMASTRA MAHA PRALAYA" : bonus ? "DIVYA VARADAAN RIDDLE" : "DHARMA SANGRAM";
+  sp.classList.remove("hide");
+  playSfx(final ? "brahma" : "round_chime");
+  anim(sp, "round-splash", 1000);
+  setTimeout(() => sp.classList.add("hide"), 1000);
+}
+
+/* ---------- WebSocket Messages Handler ---------- */
+function on(m) {
+  if (m.type == "wait") msg(m.room ? "waitRoom" : "waitRival", { room: m.room });
+  
+  if (m.type == "start") {
+    NM = m.names;
+    msg(null);
+    if (m.max_hp) maxHp = m.max_hp;
+    if (m.rounds) lastTotalRounds = m.rounds;
+    updateStagePods(m.count);
+    setupBattleHud(m.names);
+    flash("rgba(255,215,107,.22)", 420);
+    playSfx("round_chime");
+  }
+
+  if (m.type == "q") {
+    currentQ = m; me = m.you;
+    reconActiveThisRound = false;
+    if (m.total_rounds) lastTotalRounds = m.total_rounds;
+
+    // Toggle Brahmashira High-Risk Button every 6th round or final round
+    const isBrahmaRound = (m.n % 6 === 0) || m.final;
+    const bshiraBtn = $("btnBrahmashira");
+    if (bshiraBtn) {
+      bshiraBtn.classList.toggle("hide", !isBrahmaRound);
+      brahmashiraEmpowered = false;
+      bshiraBtn.classList.remove("empowered");
+    }
+
+    if ($("hudGrid").children.length !== m.players.length) {
+      updateStagePods(m.players.length);
+      setupBattleHud(m.players.map(p => p.name));
+    }
+    NM2();
+    $("quizCard").classList.remove("hide");
+    $("endCard").classList.add("hide");
+    document.body.classList.toggle("brahma", m.final);
+
+    triggerRoundSplash(m.n, m.final, m.bonus);
+
+    const tr = (m.all_tr && m.all_tr[LG]) || { text: m.text, opts: m.opts };
+    $("rn").textContent = m.final ? T("rFinal").split(":")[0] : m.bonus ? T("rBonus").split(":")[0] : T("round", { n: m.n }) + (m.total_rounds ? " / " + m.total_rounds : "");
+    $("txt").style.color = m.bonus ? "var(--gold2)" : "";
+    $("txt").textContent = tr.text;
+    $("tag").textContent = realmLabel(m.epic) + " · " + T("lvn" + m.lvl);
+    $("tag").dataset.e = m.epic;
+    if (m.t > 10 && !m.final) msg("bonusTime", { s: m.t }); else msg(null);
+
+    const o = $("opts"); o.innerHTML = "";
+    tr.opts.forEach((t, i) => {
+      const b = document.createElement("button");
+      b.textContent = "ABCD"[i] + ")  " + t;
+      b.onclick = () => {
+        playSfx("click");
+        wsSend({ type: "ans", i });
+        [...o.children].forEach(x => x.disabled = true);
+        b.classList.add("sel"); msg("locked");
+      };
+      o.appendChild(b);
+    });
+
+    clearInterval(tick); $("timer").textContent = (+m.t).toFixed(1); const t0 = Date.now();
+    tick = setInterval(() => {
+      const r = Math.max(0, m.t - (Date.now() - t0) / 1000);
+      $("timer").textContent = r.toFixed(1);
+      if (r <= 3.0 && r > 0.1 && (Math.round(r * 10) % 10 === 0)) playSfx("tick");
+      if (r <= 0) clearInterval(tick);
+    }, 100);
+  }
+
+  if (m.type == "brahma") {
+    msg("brahma"); playSfx("brahma");
+    anim($("stage"), "clash", 1200);
+  }
+
+  if (m.type == "res") {
+    clearInterval(tick);
+    const hp = m.hp, g = m.g, hit = m.hit, sc = m.sc, gain = m.gain,
+          st = m.st, rt = m.rt, fast = m.fast, ex = m.extra || [];
+
+    const myGain = gain[me] || 0;
+    playSfx(myGain > 0 ? "correct" : "wrong");
+
+    [...$("opts").children].forEach((b, i) => {
+      b.disabled = true;
+      if (i == m.correct) b.classList.add("ok");
+      else if (b.classList.contains("sel")) b.classList.add("bad");
+    });
+
+    // Update HUD Cards, Mastery Titles & Animated Astra Charging Pulse
+    for (let i = 0; i < hp.length; i++) {
+      const h = $("h" + i), gEl = $("g" + i), gg = $("gg" + i), hcard = $("hcard" + i);
+      if (h) {
+        const before = parseFloat(h.dataset.hp || "100");
+        const displayHp = Math.max(0, Math.round((hp[i] / (maxHp || 100)) * 100));
+        h.style.width = displayHp + "%";
+        h.dataset.hp = hp[i];
+        if (hit[i]) {
+          anim(h, "dmg", 600);
+          const lost = Math.max(0, before - hp[i]);
+          if (lost > 0) dmgNumber(i, "-" + Math.round(lost), "dmg");
+        }
+      }
+      if (gEl) gEl.style.width = Math.min(100, g[i]) + "%";
+      if (gg) gg.classList.toggle("full", g[i] >= 100);
+
+      // Astra Charging Golden Energy Glow Pulse when Gauge hits 100%
+      if (hcard) {
+        hcard.classList.toggle("full-gauge", g[i] >= 100);
+      }
+
+      const sEl = $("s" + i), kEl = $("k" + i), crank = $("crank" + i);
+      if (sEl) {
+        if (+sEl.textContent !== sc[i]) {
+          sEl.textContent = sc[i];
+          anim(sEl.parentNode, "bump", 500);
+        }
+      }
+      if (kEl) kEl.textContent = st[i] >= 2 ? "🔥×" + st[i] : "";
+
+      // Dynamic Live Mastery Rank Badge
+      if (crank && currentQ) {
+        const mTier = calcMasteryTier(sc[i], rt[i], currentQ.n);
+        crank.textContent = T(mTier.rank.key);
+      }
+
+      // Popups
+      if (gain[i] > 0) {
+        pop(i, "+" + gain[i]);
+        if (fast[i]) setTimeout(() => pop(i, T("fast"), "fast"), 150);
+        if (st[i] >= 2) {
+          const titleKey = st[i] >= 5 ? "st5" : ("st" + st[i]);
+          setTimeout(() => pop(i, T(titleKey) || T("streakMsg", { n: st[i] }), "st"), 300);
+        }
+        if (g[i] >= 100) {
+          setTimeout(() => { pop(i, T("divya"), "divya"); playSfx("divya"); flash("rgba(255,215,107,.2)", 420); }, 450);
+        }
+      }
+      if (i === me) setCombo(st[i] || 0);
+    }
+
+    // Kavacha (Shield Streak Mechanics)
+    // 3 consecutive correct answers earn a Kavacha (Shield).
+    if (myGain > 0) {
+      if (st[me] >= 3 && !kavachaActive) {
+        kavachaActive = true;
+        playSfx("shield_gain");
+        setTimeout(() => pop(me, T("kavachaGranted"), "divya"), 400);
+        $("pod" + me)?.classList.add("has-shield");
+        $("kavachaBadge" + me)?.classList.remove("hide");
+      }
+    } else {
+      // Shield lost if player answers incorrectly
+      if (kavachaActive) {
+        kavachaActive = false;
+        $("pod" + me)?.classList.remove("has-shield");
+        $("kavachaBadge" + me)?.classList.add("hide");
+      }
+    }
+
+    // Hit absorption by Kavacha: Next time hit by an Astra, shield breaks instead of taking damage
+    if (hit[me] && kavachaActive) {
+      kavachaActive = false;
+      playSfx("shield_break");
+      setTimeout(() => pop(me, T("kavachaBroke"), "divya"), 200);
+      $("pod" + me)?.classList.remove("has-shield");
+      $("kavachaBadge" + me)?.classList.add("hide");
+    }
+
+    // Brahmashira Round Resolution
+    if (brahmashiraEmpowered) {
+      if (myGain > 0) {
+        setTimeout(() => pop(me, T("brahmashiraWin"), "divya"), 350);
+        playSfx("brahma");
+        P.karma += 30; // Steal 10% opponent karma
+        saveP(); profileUI();
+      } else {
+        setTimeout(() => pop(me, T("brahmashiraFail"), "bad"), 350);
+        anim($("pod" + me), "hit", 800);
+        playSfx("wrong");
+      }
+      brahmashiraEmpowered = false;
+      $("btnBrahmashira")?.classList.remove("empowered");
+    }
+
+    if (m.bonus) {
+      msg(ex[me] ? "bonusWon" : "bonusMiss");
+    } else if (m.clash) {
+      msg("clash"); anim($("stage"), "clash", 700); anim($("stage"), "shake", 500);
+      playSfx("clash");
+      fireBeam(0, 1, true, false); fireBeam(1, 0, true, false);
+    } else if (hit.some(x => x)) {
+      msg(hit[me] ? "hitYou" : "hitRival");
+      anim($("stage"), "shake", 450);
+      if (hit[me]) { flash("rgba(255,40,60,.3)", 340); anim($("pod" + me), "hit", 650); }
+      // Fire projectiles from attackers to damaged victims
+      for (let att = 0; att < hp.length; att++) {
+        if (gain[att] > 0) {
+          for (let vic = 0; vic < hp.length; vic++) {
+            if (hit[vic] && att !== vic) {
+              fireBeam(att, vic, fast[att], m.final);
+              anim($("f" + att), "lunge-l", 450);
+              setTimeout(() => {
+                anim($("f" + vic), "hit", 650);
+                playSfx(g[att] >= 100 ? "divya_hit" : "hit");
+              }, 500);
+            }
+          }
+        }
+      }
+    } else {
+      msg("noHit");
+    }
+    burst();
+  }
+
+  if (m.type == "end") {
+    over = true; currentQ = null; clearInterval(tick); $("opts").innerHTML = "";
+    gameActive = false;
+    $("quizCard").classList.add("hide");
+    $("endCard").classList.remove("hide");
+    const win = (m.winner === me);
+    msg(m.winner < 0 ? "left" : win ? "victory" : "defeat");
+
+    if (m.winner >= 0) {
+      $("banner").innerHTML = `<div class="banner ${win ? "" : "lose"}">${T(win ? "victory" : "defeat").split(/[.!]/)[0]}${win ? "!" : "."}</div>`;
+      if (win) {
+        for (let i = 0; i < 6; i++) setTimeout(burst, i * 180);
+        playSfx("shankha");
+        flash("rgba(255,215,107,.34)", 700);
+        anim($("stage"), "victory", 1200);
+      } else {
+        playSfx("wrong");
+        flash("rgba(255,40,60,.26)", 600);
+      }
+    }
+
+    // Render Grand Kurukshetra Mastery Progression Ladder
+    const myScore = m.sc[me] || 0, myRight = m.rt[me] || 0;
+    const totalRounds = lastTotalRounds || roundsCount || 12;
+    const { idx: earnedIdx, rank: earnedRank, acc: myAcc } = calcMasteryTier(myScore, myRight, totalRounds);
+
+    const ladEl = $("masteryLadder");
+    ladEl.innerHTML = "";
+    MASTERY_RANKS.forEach((rk, i) => {
+      const step = document.createElement("div");
+      const isAchieved = (i === earnedIdx);
+      const isPassed = (i < earnedIdx);
+      step.className = "mastery-step" + (isAchieved ? " achieved" : isPassed ? " passed" : "");
+      step.innerHTML = `
+        <div class="m-icon">${rk.icon}</div>
+        <div class="m-info">
+          <b>${T(rk.key)}</b>
+          <small>${T(rk.descKey)}</small>
+        </div>
+        <div class="m-badge">${isAchieved ? "★ " + T("masteryScale").split(" ")[0].toUpperCase() : rk.score + "+ PTS"}</div>
+      `;
+      ladEl.appendChild(step);
+    });
+
+    // Battle Metrics Grid
+    const metEl = $("metricsGrid");
+    const myFastest = (m.fastest && m.fastest[me]) ? m.fastest[me] + "s" : "—";
+    const myStreak = (m.st && m.st[me]) ? "🔥 " + m.st[me] : "0";
+    metEl.innerHTML = `
+      <div class="metric-box"><small>${T("score")}</small><b>★ ${myScore}</b></div>
+      <div class="metric-box"><small>${T("accuracyLabel")}</small><b>${myAcc}%</b></div>
+      <div class="metric-box"><small>${T("fastestLabel")}</small><b>${myFastest}</b></div>
+      <div class="metric-box"><small>${T("streakLabel")}</small><b>${myStreak}</b></div>
+    `;
+
+    // Multi-player Scoreboard
+    const eb = $("endBoard"); eb.innerHTML = "";
+    (m.ranks || [0, 1]).forEach(pIdx => {
+      const box = document.createElement("div");
+      if (pIdx === me) box.className = "me";
+      box.innerHTML = `
+        <h4>${m.names ? m.names[pIdx] : NM[pIdx]}${pIdx === me ? " (" + T("you") + ")" : ""}</h4>
+        <p><span>${T("score")}</span><b>★ ${m.sc[pIdx]}</b></p>
+        <p><span>${T("correct")}</span><b>${m.rt[pIdx]}</b></p>
+        <p><span>${T("streak")}</span><b>${m.st ? m.st[pIdx] : 0}</b></p>
+        <p><span>${T("health")}</span><b>${m.hp ? m.hp[pIdx] : 0}</b></p>
+      `;
+      eb.appendChild(box);
+    });
+
+    P.played++;
+
+    // Cosmic Vault & Meta-Progression Resolution
+    let vaultKarma = 50;
+    let earnedTitle = "";
+    if (win) {
+      P.wins++;
+      if (isHardcore) {
+        vaultKarma = 150; // 3x Karma for Masters of Shastrath
+        earnedTitle = T("title_shastrath_master");
+      } else {
+        const pool = [
+          T("title_defender_of_dharma"),
+          T("title_brahmashira_wielder"),
+          T("title_cosmic_maharathi")
+        ];
+        earnedTitle = pool[Math.floor(Math.random() * pool.length)];
+      }
+
+      // Show Cosmic Vault Loot Box
+      const vs = $("vaultSection");
+      const vr = $("vaultReward");
+      const vp = $("vaultPrompt");
+      const vc = $("vaultChest");
+      if (vs && vr && vp && vc) {
+        vs.classList.remove("hide");
+        vr.classList.add("hide");
+        vp.classList.remove("hide");
+        vc.classList.remove("rumbling");
+
+        vc.onclick = () => {
+          if (vc.classList.contains("rumbling") || !vr.classList.contains("hide")) return;
+          vc.classList.add("rumbling");
+          playSfx("vault_rumble");
+          vp.textContent = T("vaultOpening");
+
+          setTimeout(() => {
+            vc.classList.remove("rumbling");
+            vp.classList.add("hide");
+            vr.classList.remove("hide");
+            playSfx("vault_open");
+            for (let i = 0; i < 5; i++) setTimeout(burst, i * 140);
+
+            $("rewardKarmaText").textContent = "+" + vaultKarma + " " + T("karma");
+            $("rewardTitleBadge").textContent = "👑 " + earnedTitle;
+          }, 1100);
+        };
+
+        $("btnClaimVault").onclick = () => {
+          playSfx("click");
+          if (!P.titles.includes(earnedTitle)) P.titles.push(earnedTitle);
+          P.equippedTitle = earnedTitle;
+          P.karma += vaultKarma;
+          saveP(); profileUI();
+          vs.classList.add("hide");
+          pop(me, "✨ " + T("vaultBlessing"), "divya");
+        };
+      } else {
+        P.karma += vaultKarma;
+      }
+    } else {
+      const vs = $("vaultSection");
+      if (vs) vs.classList.add("hide");
+    }
+
+    if (myScore > P.best) P.best = myScore;
+    saveP(); profileUI();
+  }
+}
+
+/* ---------- Ancient Sci-Fi Particle Field Canvas ---------- */
+const cv = $("stars"), cx = cv.getContext("2d");
+const COL = ["#00f0ff", "#ffd700", "#ff3355", "#ffffff", "#70f8ff"];
+let ps = [];
+
+function initStars() {
+  cv.width = innerWidth; cv.height = innerHeight;
+  ps = Array.from({ length: fxN }, () => ({
+    x: Math.random() * cv.width,
+    y: Math.random() * cv.height,
+    r: Math.random() * 2 + 0.4,
+    v: Math.random() * 0.4 + 0.1,
+    c: COL[Math.floor(Math.random() * COL.length)]
+  }));
+}
+
+function burst() {
+  for (let i = 0; i < fxN / 2; i++) {
+    ps.push({
+      x: cv.width / 2 + (Math.random() - 0.5) * 60,
+      y: cv.height / 3 + (Math.random() - 0.5) * 40,
+      r: 2 + Math.random() * 2.8,
+      v: -(Math.random() * 3.5 + 1),
+      life: 65,
+      dx: (Math.random() - 0.5) * 7,
+      c: COL[i % COL.length]
+    });
+  }
+}
+
+(function loop() {
+  cx.clearRect(0, 0, cv.width, cv.height);
+  ps = ps.filter(p => !(p.life !== undefined && --p.life < 0));
+  ps.forEach(p => {
+    cx.fillStyle = p.c || "#00f0ff";
+    p.y -= p.v * (p.life ? 1 : -1) * (p.life ? 1 : -1);
+    if (p.dx) p.x += p.dx;
+    if (p.y < 0) p.y = cv.height;
+    if (p.x < 0) p.x = cv.width;
+    if (p.x > cv.width) p.x = 0;
+    cx.globalAlpha = p.life ? p.life / 65 : 0.65;
+    cx.beginPath(); cx.arc(p.x, p.y, p.r, 0, 7); cx.fill();
+  });
+  requestAnimationFrame(loop);
+})();
+
+addEventListener("resize", initStars);
+initStars();
+applyLang();
+
+/* ---------- Warm start: open the socket + wake the backend before the first tap ---------- */
+(function warmStart() {
+  const savedTheme = store("theme") || "";
+  if (savedTheme) { $("theme").value = savedTheme; $("theme").onchange({ target: { value: savedTheme } }); }
+  try { openSocket(); } catch(e) {}
+  keepAlive();
+  setInterval(keepAlive, 45000);          // keeps Render awake -> no cold-start delay
+  setInterval(() => { if (!gameActive && ws && ws.readyState === WebSocket.CLOSED) { try { openSocket(); } catch(e) {} } }, 20000);
+})();
+
+if (P.name && P.name.trim()) {
+  setScreen("menu");
+} else {
+  setScreen("welcome");
+}
+</script></body></html>
